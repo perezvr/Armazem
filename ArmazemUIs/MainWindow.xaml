@@ -1,0 +1,31 @@
+﻿<Window x:Class="ArmazemUIs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArmazemUIs"
+        mc:Ignorable="d"
+        Title="Sistema de Controle de Armazém" Height="544.4" Width="886.5"
+        WindowState="Maximized">
+    <Grid>
+        <Menu  VerticalAlignment="Top">
+            <MenuItem Header="_Cadastros">
+                <MenuItem x:Name="menuProdutosSimples" Header="Produtos _Simples" Click="menuProdutosSimples_Click" />
+                <MenuItem x:Name="menuProdutosCompostos" Header="Produtos _Compostos" Click="menuProdutosCompostos_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Requisições">
+                <MenuItem Header="Requisição de saída de mercadoria" />
+            </MenuItem>
+            <MenuItem Header="R_elatórios">
+                <MenuItem Header="Requisição de saída de mercadoria" />
+            </MenuItem>
+        </Menu>
+        <TextBlock Text="Sistema de Controle de Armazém" Margin="0,0,10,29" FontSize="50" HorizontalAlignment="Right" Width="743" Height="64" VerticalAlignment="Bottom"/>
+
+        <StatusBar Height="24" VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="statusBar"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
