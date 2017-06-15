@@ -4,15 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7dedc3346620490a9a7225075d240f74" Name="Diagram1">
-        <EntityTypeShape EntityType="ArmazemModel.Item_Requisicao" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ArmazemModel.Produto" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ArmazemModel.Produto_Insumo" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ArmazemModel.Requisicao" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="ArmazemModel.FK_Item_Requisicao_Produto" ManuallyRouted="false" />
-        <AssociationConnector Association="ArmazemModel.FK_Item_Requisicao_Requisicao" ManuallyRouted="false" />
-        <AssociationConnector Association="ArmazemModel.FK_Produto_Codigo" ManuallyRouted="false" />
-        <AssociationConnector Association="ArmazemModel.FK_Produto_Pai_Codigo" />
+      <Diagram DiagramId="62019cdec4ad4b14ad0a2b28e597ae09" Name="Diagram1">
+        <EntityTypeShape EntityType="ArmazemModel.Composicao" Width="1.5" PointX="7.5" PointY="7.25" />
+        <EntityTypeShape EntityType="ArmazemModel.Item_Requisicao" Width="1.5" PointX="3" PointY="2.5" />
+        <EntityTypeShape EntityType="ArmazemModel.Produto" Width="1.5" PointX="7" PointY="2.75" />
+        <EntityTypeShape EntityType="ArmazemModel.Produto_Insumo" Width="1.5" PointX="3.75" PointY="7" />
+        <EntityTypeShape EntityType="ArmazemModel.Requisicao" Width="1.5" PointX="0.75" PointY="7.875" />
+        <AssociationConnector Association="ArmazemModel.FK_Composicao_Id" />
+        <AssociationConnector Association="ArmazemModel.FK_Composicao_Produto" />
+        <AssociationConnector Association="ArmazemModel.FK_Item_Requisicao_Produto" />
+        <AssociationConnector Association="ArmazemModel.FK_Item_Requisicao_Requisicao" />
+        <AssociationConnector Association="ArmazemModel.FK_Produto_Codigo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

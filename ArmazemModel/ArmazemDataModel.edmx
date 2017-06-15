@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ArmazemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Composicao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Produto_Codigo" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Item_Requisicao">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,7 +40,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Qtde" Type="int" Nullable="false" />
           <Property Name="Produto_Codigo" Type="int" Nullable="false" />
-          <Property Name="Produto_Pai_Codigo" Type="int" Nullable="false" />
+          <Property Name="Composicao_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Requisicao">
           <Key>
@@ -43,6 +50,30 @@
           <Property Name="Data_Abertura" Type="datetime" Nullable="false" />
           <Property Name="Responsavel" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Composicao_Id">
+          <End Role="Composicao" Type="Self.Composicao" Multiplicity="1" />
+          <End Role="Produto_Insumo" Type="Self.Produto_Insumo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Composicao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produto_Insumo">
+              <PropertyRef Name="Composicao_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Composicao_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="Composicao" Type="Self.Composicao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Composicao">
+              <PropertyRef Name="Produto_Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Item_Requisicao_Produto">
           <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
           <End Role="Item_Requisicao" Type="Self.Item_Requisicao" Multiplicity="*" />
@@ -79,23 +110,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Produto_Pai_Codigo">
-          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
-          <End Role="Produto_Insumo" Type="Self.Produto_Insumo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Produto">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="Produto_Insumo">
-              <PropertyRef Name="Produto_Pai_Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ArmazemModelStoreContainer">
+          <EntitySet Name="Composicao" EntityType="Self.Composicao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item_Requisicao" EntityType="Self.Item_Requisicao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produto_Insumo" EntityType="Self.Produto_Insumo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requisicao" EntityType="Self.Requisicao" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Composicao_Id" Association="Self.FK_Composicao_Id">
+            <End Role="Composicao" EntitySet="Composicao" />
+            <End Role="Produto_Insumo" EntitySet="Produto_Insumo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Composicao_Produto" Association="Self.FK_Composicao_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Composicao" EntitySet="Composicao" />
+          </AssociationSet>
           <AssociationSet Name="FK_Item_Requisicao_Produto" Association="Self.FK_Item_Requisicao_Produto">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="Item_Requisicao" EntitySet="Item_Requisicao" />
@@ -108,40 +136,72 @@
             <End Role="Produto" EntitySet="Produto" />
             <End Role="Produto_Insumo" EntitySet="Produto_Insumo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Produto_Pai_Codigo" Association="Self.FK_Produto_Pai_Codigo">
-            <End Role="Produto" EntitySet="Produto" />
-            <End Role="Produto_Insumo" EntitySet="Produto_Insumo" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ArmazemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ArmazemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Composicao" EntityType="ArmazemModel.Composicao" />
+          <EntitySet Name="Item_Requisicao" EntityType="ArmazemModel.Item_Requisicao" />
+          <EntitySet Name="Produto" EntityType="ArmazemModel.Produto" />
+          <EntitySet Name="Produto_Insumo" EntityType="ArmazemModel.Produto_Insumo" />
+          <EntitySet Name="Requisicao" EntityType="ArmazemModel.Requisicao" />
+          <AssociationSet Name="FK_Composicao_Id" Association="ArmazemModel.FK_Composicao_Id">
+            <End Role="Composicao" EntitySet="Composicao" />
+            <End Role="Produto_Insumo" EntitySet="Produto_Insumo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Composicao_Produto" Association="ArmazemModel.FK_Composicao_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Composicao" EntitySet="Composicao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Requisicao_Produto" Association="ArmazemModel.FK_Item_Requisicao_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Item_Requisicao" EntitySet="Item_Requisicao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Requisicao_Requisicao" Association="ArmazemModel.FK_Item_Requisicao_Requisicao">
+            <End Role="Requisicao" EntitySet="Requisicao" />
+            <End Role="Item_Requisicao" EntitySet="Item_Requisicao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produto_Codigo" Association="ArmazemModel.FK_Produto_Codigo">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Produto_Insumo" EntitySet="Produto_Insumo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Composicao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Produto_Codigo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produto_Insumo" Relationship="ArmazemModel.FK_Composicao_Id" FromRole="Composicao" ToRole="Produto_Insumo" />
+          <NavigationProperty Name="Produto" Relationship="ArmazemModel.FK_Composicao_Produto" FromRole="Composicao" ToRole="Produto" />
+        </EntityType>
         <EntityType Name="Item_Requisicao">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Qtde" Type="Int32" Nullable="false" />
-          <Property Name="Preco_Custo" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Preco_Custo" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="Requisicao_Codigo" Type="Int32" Nullable="false" />
           <Property Name="Produto_Codigo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Produto" Relationship="Self.FK_Item_Requisicao_Produto" FromRole="Item_Requisicao" ToRole="Produto" />
-          <NavigationProperty Name="Requisicao" Relationship="Self.FK_Item_Requisicao_Requisicao" FromRole="Item_Requisicao" ToRole="Requisicao" />
+          <NavigationProperty Name="Produto" Relationship="ArmazemModel.FK_Item_Requisicao_Produto" FromRole="Item_Requisicao" ToRole="Produto" />
+          <NavigationProperty Name="Requisicao" Relationship="ArmazemModel.FK_Item_Requisicao_Requisicao" FromRole="Item_Requisicao" ToRole="Requisicao" />
         </EntityType>
         <EntityType Name="Produto">
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Tipo" Type="Int32" Nullable="false" />
           <Property Name="Preco_Custo" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Preco_Venda" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Estoque_Atual" Type="Int32" />
-          <NavigationProperty Name="Item_Requisicao" Relationship="Self.FK_Item_Requisicao_Produto" FromRole="Produto" ToRole="Item_Requisicao" />
-          <NavigationProperty Name="Produto_Insumo" Relationship="Self.FK_Produto_Codigo" FromRole="Produto" ToRole="Produto_Insumo" />
-          <NavigationProperty Name="Produto_Insumo1" Relationship="ArmazemModel.FK_Produto_Pai_Codigo" FromRole="Produto" ToRole="Produto_Insumo" />
+          <NavigationProperty Name="Composicao" Relationship="ArmazemModel.FK_Composicao_Produto" FromRole="Produto" ToRole="Composicao" />
+          <NavigationProperty Name="Item_Requisicao" Relationship="ArmazemModel.FK_Item_Requisicao_Produto" FromRole="Produto" ToRole="Item_Requisicao" />
+          <NavigationProperty Name="Produto_Insumo" Relationship="ArmazemModel.FK_Produto_Codigo" FromRole="Produto" ToRole="Produto_Insumo" />
         </EntityType>
         <EntityType Name="Produto_Insumo">
           <Key>
@@ -150,9 +210,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Qtde" Type="Int32" Nullable="false" />
           <Property Name="Produto_Codigo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Produto" Relationship="Self.FK_Produto_Codigo" FromRole="Produto_Insumo" ToRole="Produto" />
-          <Property Name="Produto_Pai_Codigo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Produto1" Relationship="ArmazemModel.FK_Produto_Pai_Codigo" FromRole="Produto_Insumo" ToRole="Produto" />
+          <Property Name="Composicao_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Composicao" Relationship="ArmazemModel.FK_Composicao_Id" FromRole="Produto_Insumo" ToRole="Composicao" />
+          <NavigationProperty Name="Produto" Relationship="ArmazemModel.FK_Produto_Codigo" FromRole="Produto_Insumo" ToRole="Produto" />
         </EntityType>
         <EntityType Name="Requisicao">
           <Key>
@@ -160,12 +220,36 @@
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Data_Abertura" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Responsavel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Item_Requisicao" Relationship="Self.FK_Item_Requisicao_Requisicao" FromRole="Requisicao" ToRole="Item_Requisicao" />
+          <Property Name="Responsavel" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Item_Requisicao" Relationship="ArmazemModel.FK_Item_Requisicao_Requisicao" FromRole="Requisicao" ToRole="Item_Requisicao" />
         </EntityType>
+        <Association Name="FK_Composicao_Id">
+          <End Type="ArmazemModel.Composicao" Role="Composicao" Multiplicity="1" />
+          <End Type="ArmazemModel.Produto_Insumo" Role="Produto_Insumo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Composicao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Produto_Insumo">
+              <PropertyRef Name="Composicao_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Composicao_Produto">
+          <End Type="ArmazemModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="ArmazemModel.Composicao" Role="Composicao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Composicao">
+              <PropertyRef Name="Produto_Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Item_Requisicao_Produto">
-          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
-          <End Role="Item_Requisicao" Type="Self.Item_Requisicao" Multiplicity="*" />
+          <End Type="ArmazemModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="ArmazemModel.Item_Requisicao" Role="Item_Requisicao" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Produto">
               <PropertyRef Name="Codigo" />
@@ -176,8 +260,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Item_Requisicao_Requisicao">
-          <End Role="Requisicao" Type="Self.Requisicao" Multiplicity="1" />
-          <End Role="Item_Requisicao" Type="Self.Item_Requisicao" Multiplicity="*" />
+          <End Type="ArmazemModel.Requisicao" Role="Requisicao" Multiplicity="1" />
+          <End Type="ArmazemModel.Item_Requisicao" Role="Item_Requisicao" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Requisicao">
               <PropertyRef Name="Codigo" />
@@ -188,8 +272,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Produto_Codigo">
-          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
-          <End Role="Produto_Insumo" Type="Self.Produto_Insumo" Multiplicity="*" />
+          <End Type="ArmazemModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="ArmazemModel.Produto_Insumo" Role="Produto_Insumo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Produto">
               <PropertyRef Name="Codigo" />
@@ -199,85 +283,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ArmazemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Item_Requisicao" EntityType="Self.Item_Requisicao" />
-          <EntitySet Name="Produtoes" EntityType="Self.Produto" />
-          <EntitySet Name="Produto_Insumo" EntityType="Self.Produto_Insumo" />
-          <EntitySet Name="Requisicaos" EntityType="Self.Requisicao" />
-          <AssociationSet Name="FK_Item_Requisicao_Produto" Association="Self.FK_Item_Requisicao_Produto">
-            <End Role="Produto" EntitySet="Produtoes" />
-            <End Role="Item_Requisicao" EntitySet="Item_Requisicao" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Item_Requisicao_Requisicao" Association="Self.FK_Item_Requisicao_Requisicao">
-            <End Role="Requisicao" EntitySet="Requisicaos" />
-            <End Role="Item_Requisicao" EntitySet="Item_Requisicao" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Produto_Codigo" Association="Self.FK_Produto_Codigo">
-            <End Role="Produto" EntitySet="Produtoes" />
-            <End Role="Produto_Insumo" EntitySet="Produto_Insumo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Produto_Pai_Codigo" Association="ArmazemModel.FK_Produto_Pai_Codigo">
-            <End Role="Produto" EntitySet="Produtoes" />
-            <End Role="Produto_Insumo" EntitySet="Produto_Insumo" />
-          </AssociationSet>
-        </EntityContainer>
-        <Association Name="FK_Produto_Pai_Codigo">
-          <End Type="ArmazemModel.Produto" Role="Produto" Multiplicity="1" />
-          <End Type="ArmazemModel.Produto_Insumo" Role="Produto_Insumo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Produto">
-              <PropertyRef Name="Codigo" />
-            </Principal>
-            <Dependent Role="Produto_Insumo">
-              <PropertyRef Name="Produto_Pai_Codigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ArmazemModelStoreContainer" CdmEntityContainer="ArmazemEntities">
-          <EntitySetMapping Name="Item_Requisicao">
-            <EntityTypeMapping TypeName="ArmazemModel.Item_Requisicao">
-              <MappingFragment StoreEntitySet="Item_Requisicao">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Qtde" ColumnName="Qtde" />
-                <ScalarProperty Name="Preco_Custo" ColumnName="Preco_Custo" />
-                <ScalarProperty Name="Requisicao_Codigo" ColumnName="Requisicao_Codigo" />
+          <EntitySetMapping Name="Composicao">
+            <EntityTypeMapping TypeName="ArmazemModel.Composicao">
+              <MappingFragment StoreEntitySet="Composicao">
                 <ScalarProperty Name="Produto_Codigo" ColumnName="Produto_Codigo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Produtoes">
+          <EntitySetMapping Name="Item_Requisicao">
+            <EntityTypeMapping TypeName="ArmazemModel.Item_Requisicao">
+              <MappingFragment StoreEntitySet="Item_Requisicao">
+                <ScalarProperty Name="Produto_Codigo" ColumnName="Produto_Codigo" />
+                <ScalarProperty Name="Requisicao_Codigo" ColumnName="Requisicao_Codigo" />
+                <ScalarProperty Name="Preco_Custo" ColumnName="Preco_Custo" />
+                <ScalarProperty Name="Qtde" ColumnName="Qtde" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produto">
             <EntityTypeMapping TypeName="ArmazemModel.Produto">
               <MappingFragment StoreEntitySet="Produto">
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="Preco_Custo" ColumnName="Preco_Custo" />
-                <ScalarProperty Name="Preco_Venda" ColumnName="Preco_Venda" />
                 <ScalarProperty Name="Estoque_Atual" ColumnName="Estoque_Atual" />
+                <ScalarProperty Name="Preco_Venda" ColumnName="Preco_Venda" />
+                <ScalarProperty Name="Preco_Custo" ColumnName="Preco_Custo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Produto_Insumo">
             <EntityTypeMapping TypeName="ArmazemModel.Produto_Insumo">
               <MappingFragment StoreEntitySet="Produto_Insumo">
-                <ScalarProperty Name="Produto_Pai_Codigo" ColumnName="Produto_Pai_Codigo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Qtde" ColumnName="Qtde" />
+                <ScalarProperty Name="Composicao_Id" ColumnName="Composicao_Id" />
                 <ScalarProperty Name="Produto_Codigo" ColumnName="Produto_Codigo" />
+                <ScalarProperty Name="Qtde" ColumnName="Qtde" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Requisicaos">
+          <EntitySetMapping Name="Requisicao">
             <EntityTypeMapping TypeName="ArmazemModel.Requisicao">
               <MappingFragment StoreEntitySet="Requisicao">
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Data_Abertura" ColumnName="Data_Abertura" />
                 <ScalarProperty Name="Responsavel" ColumnName="Responsavel" />
+                <ScalarProperty Name="Data_Abertura" ColumnName="Data_Abertura" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -295,7 +353,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

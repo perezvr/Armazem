@@ -1,18 +1,18 @@
-﻿<Window x:Class="ArmazemUIs.ProdutoCompostoUI"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="ArmazemUIs.ComposicaoUI"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArmazemUIs"
         mc:Ignorable="d"
-        Title="Cadastro de Produtos Compostos" Height="595.248" Width="861.54"
+        Title="Cadastro de Composições" Height="595.248" Width="861.54"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
     <Grid>
         <GroupBox Margin="10,10,10,0" Header="Dados do produto" Height="135" VerticalAlignment="Top">
             <Grid>
                 <Label Content="Código" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtCodigo" TextAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" IsEnabled="False"/>
+                <TextBox x:Name="txtCodigo" TextAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99"/>
                 <TextBox x:Name="txtDescricao" Height="23" VerticalContentAlignment="Center" Margin="114,29,10,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="50"/>
                 <Label Content="Descrição" HorizontalAlignment="Left" Margin="114,3,0,0" VerticalAlignment="Top"/>
                 <Label  Content="Preço de Venda" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top"/>

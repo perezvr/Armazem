@@ -23,34 +23,19 @@ namespace ArmazemUIs
     /// </summary>
     public partial class ListProdutosUI : Window
     {
-        TIPO_PRODUTO tipoCadastro;
+        Produto_Controller Produto_Controller { get; set; }
 
-        public ListProdutosUI(TIPO_PRODUTO tipoCadastro)
+        public ListProdutosUI()
         {
             InitializeComponent();
-            this.tipoCadastro = tipoCadastro;
-            Title = $"Lista de {tipoCadastro.getDescription()}";
+            Produto_Controller = new Produto_Controller();
+            Title = $"Lista de Produtos";
         }
 
-        private void HabilitaComponentes()
-        {
-            switch (tipoCadastro)
-            {
-                case TIPO_PRODUTO.SIMPLES:
-                    break;
-                case TIPO_PRODUTO.COMPOSTO:
-                colEstoqueAtual.Visibility = Visibility.Hidden;
-                    break;
-                default:
-                    break;
-            }
-
-            //TODO arrumar o GetPrecoCusto para contemplar o Produto Composto
-        }
 
         private void AtualizaListaDeProdutos()
         {
-            gridProdutos.ItemsSource = Produto_Controller.Listar(i => i.Tipo.Equals((int)tipoCadastro));          
+            gridProdutos.ItemsSource = Produto_Controller.ListarTodos();
         }
 
         #region Operações
@@ -61,24 +46,10 @@ namespace ArmazemUIs
 
             try
             {
-                switch (tipoCadastro)
-                {
-                    case TIPO_PRODUTO.SIMPLES:
-                        ProdutoSimplesUI produtoSimplesUI = new ProdutoSimplesUI();
-                        produtoSimplesUI.Owner = this;
-                        produtoSimplesUI.ShowDialog();
-                        AtualizaListaDeProdutos();
-                        break;
-                    case TIPO_PRODUTO.COMPOSTO:
-                        ProdutoCompostoUI produtoCompostoUI = new ProdutoCompostoUI();
-                        produtoCompostoUI.Owner = this;
-                        produtoCompostoUI.ShowDialog();
-                        AtualizaListaDeProdutos();
-                        break;
-                    default:
-                        break;
-
-                }
+                CadastroProdutoUI cadastroProdutosUI = new CadastroProdutoUI();
+                cadastroProdutosUI.Owner = this;
+                cadastroProdutosUI.ShowDialog();
+                AtualizaListaDeProdutos();
             }
             catch (Exception ex)
             {
@@ -133,19 +104,12 @@ namespace ArmazemUIs
             {
                 if (gridProdutos.SelectedItem != null)
                 {
-                    switch (tipoCadastro)
-                    {
-                        case TIPO_PRODUTO.SIMPLES:
-                            ProdutoSimplesUI produtoSimplesUI = new ProdutoSimplesUI(((Produto)gridProdutos.SelectedItem));
-                            produtoSimplesUI.Owner = this;
-                            produtoSimplesUI.ShowDialog();
-                            AtualizaListaDeProdutos();
-                            break;
-                        case TIPO_PRODUTO.COMPOSTO:
-                            break;
-                        default:
-                            break;
-                    }
+
+                    CadastroProdutoUI cadastroProdutoUI = new CadastroProdutoUI(((Produto)gridProdutos.SelectedItem));
+                    cadastroProdutoUI.Owner = this;
+                    cadastroProdutoUI.ShowDialog();
+                    AtualizaListaDeProdutos();
+
                 }
                 else
                     throw new ValidationException("Selecione um registo.");
@@ -197,3 +161,6 @@ namespace ArmazemUIs
         #endregion
     }
 }
+
+//TODO arrumar o GetPrecoCusto para contemplar o Produto Composto
+

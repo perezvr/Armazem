@@ -1,6 +1,7 @@
 ﻿using ArmazemController;
 using ArmazemModel;
 using System;
+using System.Linq;
 using System.Windows;
 using static ArmazemModel.Util;
 
@@ -14,12 +15,37 @@ namespace ArmazemUIs
         public MainWindow()
         {
             InitializeComponent();
+            //teste();
+        }
+
+        private void teste()
+        {
+            Produto_Controller pc = new Produto_Controller();
+            Produto p1 = pc.PesquisaPorCodigo(20);
+
+
         }
         private void AcessaCadastroProdutos(TIPO_PRODUTO tipoCadastro)
         {
             try
             {
-                ListProdutosUI listProdutosUI = new ListProdutosUI(tipoCadastro);
+                ListProdutosUI listProdutosUI = new ListProdutosUI();
+                listProdutosUI.Owner = this;
+                listProdutosUI.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                statusBar.Text = ex.InnerException != null
+                    ? ex.InnerException.Message
+                    : ex.Message;
+            }
+        }
+
+        private void AcessaCadastroProdutos()
+        {
+            try
+            {
+                ListProdutosUI listProdutosUI = new ListProdutosUI();
                 listProdutosUI.Owner = this;
                 listProdutosUI.ShowDialog();
             }
@@ -35,16 +61,24 @@ namespace ArmazemUIs
 
         private void menuProdutosSimples_Click(object sender, RoutedEventArgs e)
         {
-            AcessaCadastroProdutos(TIPO_PRODUTO.SIMPLES);
         }
         
         private void menuProdutosCompostos_Click(object sender, RoutedEventArgs e)
         {
-            AcessaCadastroProdutos(TIPO_PRODUTO.COMPOSTO);
 
         }
 
         #endregion
 
+        private void menuProdutos_Click(object sender, RoutedEventArgs e)
+        {
+            AcessaCadastroProdutos();
+
+        }
+
+        private void menuComposicao_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

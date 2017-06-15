@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace ArmazemModel
 {
-    public class RequisicaoDAL : DAL<Requisicao>
-    {
-    }
+    public class RequisicaoDAL : DAL<Requisicao> { }
 }

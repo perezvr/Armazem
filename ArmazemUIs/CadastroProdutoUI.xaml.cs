@@ -19,22 +19,22 @@ using static ArmazemModel.Util;
 namespace ArmazemUIs
 {
     /// <summary>
-    /// Interaction logic for ProdutoSimplesUI.xaml
+    /// Interaction logic for CadastroProdutoUI.xaml
     /// </summary>
-    public partial class ProdutoSimplesUI : Window
+    public partial class CadastroProdutoUI : Window
     {
         Produto_Controller Produto_Controller { get; set; }
         Produto produtoSelecionado = new Produto();
 
         #region Construtores
 
-        public ProdutoSimplesUI()
+        public CadastroProdutoUI()
         {
             InitializeComponent();
             Produto_Controller = new Produto_Controller();
         }
 
-        public ProdutoSimplesUI(Produto produto)
+        public CadastroProdutoUI(Produto produto)
         {
             InitializeComponent();
             Produto_Controller = new Produto_Controller();
@@ -70,7 +70,7 @@ namespace ArmazemUIs
         }
 
         #endregion
-        
+
         private void PreencherFormulario()
         {
             try
@@ -86,6 +86,11 @@ namespace ArmazemUIs
                 txtEstoqueAtual.Text = produtoSelecionado.Estoque_Atual.HasValue
                     ? produtoSelecionado.Estoque_Atual.Value.ToString()
                     : string.Empty;
+
+                if (produtoSelecionado.Tipo.Equals((int)TIPO_PRODUTO.SIMPLES))
+                    radsimples.IsChecked = true;
+                else
+                    radComposto.IsChecked = true;
             }
             catch (Exception ex)
             {
@@ -117,7 +122,10 @@ namespace ArmazemUIs
                 ValidaSalvarFormulario();
 
                 produtoSelecionado.Descricao = txtDescricao.Text;
-                produtoSelecionado.Tipo = (int)TIPO_PRODUTO.SIMPLES;
+                produtoSelecionado.Tipo = radComposto.IsChecked.HasValue && radComposto.IsChecked.Value
+                    ? (int)TIPO_PRODUTO.SIMPLES
+                    : (int)TIPO_PRODUTO.COMPOSTO;
+
                 produtoSelecionado.Preco_Custo = !string.IsNullOrWhiteSpace(txtPrecoCusto.Text)
                     ? decimal.Parse(txtPrecoCusto.Text)
                     : 0;
@@ -198,6 +206,16 @@ namespace ArmazemUIs
 
         #endregion
 
+        private void radsimples_Checked(object sender, RoutedEventArgs e)
+        {
+            txtPrecoVenda.IsEnabled = true;
+        }
+
+        private void radComposto_Checked(object sender, RoutedEventArgs e)
+        {
+            txtPrecoVenda.IsEnabled = false;
+            txtPrecoVenda.Text = string.Empty;
+        }
     }
 }
 

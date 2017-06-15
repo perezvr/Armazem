@@ -17,9 +17,9 @@ namespace ArmazemModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Produto()
         {
+            this.Composicao = new HashSet<Composicao>();
             this.Item_Requisicao = new HashSet<Item_Requisicao>();
             this.Produto_Insumo = new HashSet<Produto_Insumo>();
-            this.Produto_Insumo1 = new HashSet<Produto_Insumo>();
         }
     
         public int Codigo { get; set; }
@@ -30,10 +30,10 @@ namespace ArmazemModel
         public Nullable<int> Estoque_Atual { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Composicao> Composicao { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item_Requisicao> Item_Requisicao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Produto_Insumo> Produto_Insumo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Produto_Insumo> Produto_Insumo1 { get; set; }
     }
 }

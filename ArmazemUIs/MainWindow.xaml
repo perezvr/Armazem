@@ -10,8 +10,8 @@
     <Grid>
         <Menu  VerticalAlignment="Top">
             <MenuItem Header="_Cadastros">
-                <MenuItem x:Name="menuProdutosSimples" Header="Produtos _Simples" Click="menuProdutosSimples_Click" />
-                <MenuItem x:Name="menuProdutosCompostos" Header="Produtos _Compostos" Click="menuProdutosCompostos_Click"/>
+                <MenuItem x:Name="menuProdutos" Header="_Produtos" Click="menuProdutos_Click" />
+                <MenuItem x:Name="menuComposicao" Header="_Composições" Click="menuComposicao_Click"/>
             </MenuItem>
             <MenuItem Header="_Requisições">
                 <MenuItem Header="Requisição de saída de mercadoria" />

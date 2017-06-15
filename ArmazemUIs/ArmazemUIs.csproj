@@ -64,6 +64,12 @@
     <Compile Include="BuscaProdutosUI.xaml.cs">
       <DependentUpon>BuscaProdutosUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CadastroProdutoUI.xaml.cs">
+      <DependentUpon>CadastroProdutoUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ComposicaoUI.xaml.cs">
+      <DependentUpon>ComposicaoUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ListProdutosUI.xaml.cs">
       <DependentUpon>ListProdutosUI.xaml</DependentUpon>
     </Compile>
@@ -72,6 +78,14 @@
     </Compile>
     <Compile Include="Util.cs" />
     <Page Include="BuscaProdutosUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CadastroProdutoUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ComposicaoUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

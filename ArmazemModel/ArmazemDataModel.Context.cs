@@ -25,9 +25,10 @@ namespace ArmazemModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Composicao> Composicao { get; set; }
         public virtual DbSet<Item_Requisicao> Item_Requisicao { get; set; }
-        public virtual DbSet<Produto> Produtoes { get; set; }
+        public virtual DbSet<Produto> Produto { get; set; }
         public virtual DbSet<Produto_Insumo> Produto_Insumo { get; set; }
-        public virtual DbSet<Requisicao> Requisicaos { get; set; }
+        public virtual DbSet<Requisicao> Requisicao { get; set; }
     }
 }

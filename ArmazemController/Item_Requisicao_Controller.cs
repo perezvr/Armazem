@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace ArmazemController
 {
-    public static class Item_Requisicao_Controller
+    public class Item_Requisicao_Controller
     {
-        static Item_RequisicaoDAL item_RequisicaoDAL = new Item_RequisicaoDAL();
+        Item_RequisicaoDAL item_RequisicaoDAL = null;
 
-        public static Item_Requisicao BuscaPorCodigo(int id)
+        public Item_Requisicao_Controller()
+        {
+            item_RequisicaoDAL = new Item_RequisicaoDAL(); 
+        }
+
+        public Item_Requisicao BuscaPorCodigo(int id)
         {
             try
             {
@@ -21,6 +26,11 @@ namespace ArmazemController
             {
                 throw;
             }
+        }
+
+        public void SetContext(ArmazemEntities contexto)
+        {
+            item_RequisicaoDAL.Contexto = contexto;
         }
     }
 }

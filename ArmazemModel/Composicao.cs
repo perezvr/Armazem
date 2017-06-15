@@ -12,14 +12,19 @@ namespace ArmazemModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Produto_Insumo
+    public partial class Composicao
     {
-        public int Id { get; set; }
-        public int Qtde { get; set; }
-        public int Produto_Codigo { get; set; }
-        public int Composicao_Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Composicao()
+        {
+            this.Produto_Insumo = new HashSet<Produto_Insumo>();
+        }
     
-        public virtual Composicao Composicao { get; set; }
+        public int Id { get; set; }
+        public int Produto_Codigo { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Produto_Insumo> Produto_Insumo { get; set; }
         public virtual Produto Produto { get; set; }
     }
 }

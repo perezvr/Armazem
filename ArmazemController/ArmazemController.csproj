@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Item_Requisicao_Controller.cs" />
     <Compile Include="Produto_Controller.cs" />
+    <Compile Include="Produto_Insumo_Controller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requisicao_Controller.cs" />
   </ItemGroup>

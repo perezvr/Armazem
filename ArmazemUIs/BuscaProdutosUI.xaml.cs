@@ -21,11 +21,14 @@ namespace ArmazemUIs
     /// </summary>
     public partial class BuscaProdutosUI : Window
     {
+        Produto_Controller Produto_Controller { get; set; }
+
         public Produto ProdutoSelecionado { get; set; }
 
         public BuscaProdutosUI()
         {
             InitializeComponent();
+            Produto_Controller = new Produto_Controller();
         }
 
         private void SelecionarProduto()

@@ -18,16 +18,16 @@ using static ArmazemModel.Util;
 namespace ArmazemUIs
 {
     /// <summary>
-    /// Interaction logic for ProdutoCompostoUI.xaml
+    /// Interaction logic for ComposicaoUI.xaml
     /// </summary>
-    public partial class ProdutoCompostoUI : Window
+    public partial class ComposicaoUI : Window
     {
         Produto_Controller Produto_Controller { get; set; }
         Produto insumoSelecionado = new Produto();
         Produto produtoSelecionado = new Produto();
         List<Produto_Insumo> listInsumos = new List<Produto_Insumo>();
 
-        public ProdutoCompostoUI()
+        public ComposicaoUI()
         {
             InitializeComponent();
             Produto_Controller = new Produto_Controller();
@@ -77,7 +77,7 @@ namespace ArmazemUIs
         {
             insumoSelecionado = new Produto();
 
-            txtCodigoInsumo.Text = 
+            txtCodigoInsumo.Text =
                 txtDescricaoInsumo.Text =
                 txtQtdeInsumo.Text = string.Empty;
         }
@@ -96,7 +96,7 @@ namespace ArmazemUIs
                 }
                 else
                     throw new ValidationException("Selecione um insumo.");
-                
+
             }
             catch (ValidationException ex)
             {
@@ -208,7 +208,7 @@ namespace ArmazemUIs
 
             try
             {
-               // ValidaSalvarFormulario();
+                // ValidaSalvarFormulario();
 
                 produtoSelecionado.Descricao = txtDescricao.Text;
                 produtoSelecionado.Tipo = (int)TIPO_PRODUTO.COMPOSTO;
@@ -239,7 +239,7 @@ namespace ArmazemUIs
         {
 
         }
-        
+
 
         private void txtCodigoInsumo_LostFocus(object sender, RoutedEventArgs e)
         {

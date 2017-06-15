@@ -8,9 +8,16 @@ using static ArmazemModel.Util;
 
 namespace ArmazemController
 {
-    public static class Produto_Controller
+    public class Produto_Controller
     {
-        static ProdutoDAL produtoDAL = new ProdutoDAL();
+        Produto_Insumo_Controller insumosController;
+        ProdutoDAL produtoDAL = null;
+
+        public Produto_Controller()
+        {
+            produtoDAL = new ProdutoDAL();
+            insumosController = new Produto_Insumo_Controller();
+        }
 
         private static void ValidSaveProduto(Produto produto)
         {
@@ -20,24 +27,45 @@ namespace ArmazemController
                 throw new ValidationException("O tipo do produto é obrigatório!");
         }
 
-        public static void Salvar(Produto produto)
+        public void Salvar(Produto produto)
         {
+            UnitOfWork unitOfWork = null;
+
             try
             {
                 ValidSaveProduto(produto);
+                unitOfWork = new UnitOfWork(true);
+                unitOfWork.BeginTransaction();
+
+                SetContext(unitOfWork.Context);
+                insumosController.SetContext(unitOfWork.Context);
+
+                List<Produto_Insumo> insumos = produto.Produto_Insumo.ToList();
+                produto.Produto_Insumo = null;
 
                 if (produto.Codigo.Equals(0))
                     produtoDAL.Add(produto);
                 else
                     produtoDAL.Update(produto);
+
+                insumos.ForEach(x =>
+                {
+                    x.Produto_Codigo = produto.Codigo;
+                    insumosController.Salvar(x);
+                });
+
+                unitOfWork.Commit();
+
             }
             catch (Exception)
             {
+                if (unitOfWork != null)
+                    unitOfWork.RollBack();
                 throw;
             }
         }
 
-        public static Produto PesquisaPorCodigo(int codigo)
+        public Produto PesquisaPorCodigo(int codigo)
         {
             try
             {
@@ -49,7 +77,7 @@ namespace ArmazemController
             }
         }
 
-        public static Produto PesquisaProdutoSimplesPorCodigo(int codigo)
+        public Produto PesquisaProdutoSimplesPorCodigo(int codigo)
         {
             try
             {
@@ -61,7 +89,7 @@ namespace ArmazemController
             }
         }
 
-        public static void Deletar(int codigo)
+        public void Deletar(int codigo)
         {
             try
             {
@@ -73,7 +101,7 @@ namespace ArmazemController
             }
         }
 
-        public static List<Produto> Listar(Func<Produto, bool> expressao)
+        public List<Produto> Listar(Func<Produto, bool> expressao)
         {
             try
             {
@@ -85,9 +113,26 @@ namespace ArmazemController
             }
         }
 
-        public static List<Produto> ListarPorDescricao(string descricao)
+        public List<Produto> ListarTodos()
+        {
+            try
+            {
+                return produtoDAL.GetAll().ToList() ?? new List<Produto>();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<Produto> ListarPorDescricao(string descricao)
         {
             return produtoDAL.GetList(x => x.Descricao.ToUpper().Contains(descricao.ToUpper()));
+        }
+
+        public void SetContext(ArmazemEntities contexto)
+        {
+            produtoDAL.Contexto = contexto;
         }
 
     }

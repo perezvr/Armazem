@@ -78,7 +78,6 @@ namespace ArmazemModel
         /// <param name="objeto">Objeto a ser atualizado no banco de dados</param>
         public void Update(T objeto)
         {
-            Contexto.Set<T>().Attach(objeto);
             Contexto.Entry(objeto).State = EntityState.Modified;
             Contexto.SaveChanges();
         }
@@ -105,6 +104,11 @@ namespace ArmazemModel
         public T Get(Func<T, bool> predicate)
         {
             return Contexto.Set<T>().Where(predicate).FirstOrDefault();
+        }
+
+        public IQueryable<T> GetAll()
+        {
+            return Contexto.Set<T>();
         }
     }
 }
