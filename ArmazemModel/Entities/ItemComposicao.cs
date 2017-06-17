@@ -19,5 +19,13 @@ namespace ArmazemModel.Entities
         public virtual Composicao Composicao { get; set; }
         [ForeignKey("ProdutoCodigo")]
         public virtual Produto Produto { get; set; }
+
+        public string GetSubTotal
+        {
+            get
+            {
+                return (Qtde * Produto.PrecoCusto).Value.ToString("n2");
+            }
+        }
     }
 }

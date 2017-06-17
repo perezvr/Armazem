@@ -17,21 +17,21 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Código" Width="60" Binding="{Binding Codigo}"/>
                         <DataGridTextColumn Header="Descrição" Width="350" Binding="{Binding Descricao}"/>
-                        <DataGridTextColumn Header="Preço de Custo" Width="*" Binding="{Binding Preco_Custo}">
+                        <DataGridTextColumn Header="Preço de Custo" Width="*" Binding="{Binding PrecoCusto}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Right" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Preço de Venda" Width="*" Binding="{Binding Preco_Venda}">
+                        <DataGridTextColumn Header="Preço de Venda" Width="*" Binding="{Binding PrecoVenda}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Right" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn x:Name="colEstoqueAtual" Header="Estoque Atual" Width="*" Binding="{Binding Estoque_Atual}">
+                        <DataGridTextColumn x:Name="colEstoqueAtual" Header="Estoque Atual" Width="*" Binding="{Binding EstoqueAtual}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Right" />

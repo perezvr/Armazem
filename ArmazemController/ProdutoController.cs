@@ -86,7 +86,7 @@ namespace ArmazemController
         {
             try
             {
-                return produtoDAL.GetAll().ToList() ?? new List<Produto>();
+                return produtoDAL.GetAllDB().ToList() ?? new List<Produto>();
             }
             catch (Exception)
             {

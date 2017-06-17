@@ -15,22 +15,8 @@
             <Grid>
                 <DataGrid x:Name="gridComposicoes" IsReadOnly="True" Background="White" RowBackground="#FFCDE7F0" AlternatingRowBackground="#FFF0EAEA" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" MouseDoubleClick="gridProdutos_MouseDoubleClick">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Código" Width="60" Binding="{Binding Id}"/>
-                        <DataGridTextColumn Header="Produto" Width="400" Binding="{Binding Produto.Descricao}"/>
-                        <DataGridTextColumn Header="Preço de Custo" Width="*" Binding="{Binding Preco_Custo}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Right" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Preço de Venda" Width="*" Binding="{Binding Produto.Preco_Venda}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Right" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Código" Width="80" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Produto" Width="*" Binding="{Binding Produto.Descricao}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

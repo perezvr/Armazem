@@ -15,9 +15,8 @@ namespace ArmazemController
 
         public ComposicaoController()
         {
-            composicaoDAL = new ComposicaoDAL();
             itemComposicaoController = new ItemComposicaoController();
-
+            composicaoDAL = new ComposicaoDAL();
         }
 
         /// <summary>
@@ -45,6 +44,20 @@ namespace ArmazemController
                 throw;
             }
         }
+
+        public void RemoverItem(Composicao composicao, ItemComposicao item)
+        {
+            try
+            {
+                composicao.ItensComposcicao.Remove(item);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
         public void Salvar(Composicao composicao)
         {

@@ -106,9 +106,19 @@ namespace ArmazemModel.DAL
             return Contexto.Set<T>().Where(predicate).FirstOrDefault();
         }
 
+        public T GetDB(Func<T, bool> predicate)
+        {
+            return Contexto.Set<T>().AsNoTracking().Where(predicate).FirstOrDefault();
+        }
+
         public IQueryable<T> GetAll()
         {
             return Contexto.Set<T>();
+        }
+
+        public IQueryable<T> GetAllDB()
+        {
+            return Contexto.Set<T>().AsNoTracking();
         }
 
         public void SetContext(ArmazemEntities contexto)

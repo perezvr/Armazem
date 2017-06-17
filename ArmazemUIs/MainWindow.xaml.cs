@@ -23,23 +23,7 @@ namespace ArmazemUIs
             //cria o banco de dados caso ainda não exista
             ArmazemEntities db = new ArmazemEntities();
             db.Database.CreateIfNotExists();
-
-            Produto p = pDAL.FindById(2);
-            Produto i = pDAL.FindById(3);
-
-            ItemComposicao ic = new ItemComposicao();
-            ic.Produto = i;
-            ic.Qtde = 5;
-
-            Composicao c = new Composicao();
-
-            c.Produto = p;
-            c.ItensComposcicao.Add(ic);
-
-            //ComposicaoController control = new ComposicaoController();
-            //control.Salvar(c);
-
-        }
+        }   
 
   
         private void AcessaCadastroProdutos(TIPO_PRODUTO tipoCadastro)

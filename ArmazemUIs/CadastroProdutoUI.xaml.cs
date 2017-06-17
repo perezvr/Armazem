@@ -21,14 +21,12 @@ namespace ArmazemUIs
 
         public CadastroProdutoUI()
         {
-            InitializeComponent();
-            ProdutoController = new ProdutoController();
+            IniciaJanela();
         }
 
         public CadastroProdutoUI(Produto produto)
         {
-            InitializeComponent();
-            ProdutoController = new ProdutoController();
+            IniciaJanela();
 
             produtoSelecionado = ProdutoController.PesquisaPorCodigo(produto.Codigo);
             PreencherFormulario();
@@ -63,6 +61,20 @@ namespace ArmazemUIs
         #endregion
 
         #region Operações
+
+        private void IniciaJanela()
+        {
+            InitializeComponent();
+            ProdutoController = new ProdutoController();
+            ConfiguraTextBoxes();
+        }
+
+        private void ConfiguraTextBoxes()
+        {
+            txtPrecoCusto.ToMoney();
+            txtPrecoVenda.ToMoney();
+            txtEstoqueAtual.ToNumeric();
+        }
 
         private void PreencherFormulario()
         {

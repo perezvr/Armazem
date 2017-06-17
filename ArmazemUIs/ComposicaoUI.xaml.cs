@@ -23,29 +23,23 @@ namespace ArmazemUIs
     /// </summary>
     public partial class ComposicaoUI : Window
     {
-        ProdutoController Produto_Controller { get; set; }
+        ProdutoController ProdutoController { get; set; }
         ComposicaoController ComposicaoController { get; set; }
         Composicao composicao = new Composicao();
         Produto itemComposicaoSelecionado = new Produto();
-        Produto produtoSelecionado = new Produto();
 
         #region Construtores
 
         public ComposicaoUI()
         {
-            InitializeComponent();
-            Produto_Controller = new ProdutoController();
-            ComposicaoController = new ComposicaoController();
+            IniciaJanela();
         }
 
         public ComposicaoUI(Composicao composicao)
         {
-            InitializeComponent();
-            Produto_Controller = new ProdutoController();
-            ComposicaoController = new ComposicaoController();
+            IniciaJanela();
 
             this.composicao = ComposicaoController.PesquisaPorId(composicao.Id);
-            produtoSelecionado = composicao.Produto;
             PreencherFormulario();
         }
 
@@ -53,10 +47,18 @@ namespace ArmazemUIs
 
         #region Validações
 
+        private void ValidaAdicionarItem()
+        {
+            if (itemComposicaoSelecionado.Codigo.Equals(0))
+                throw new ValidationException("Selecione um item.");
+            if (string.IsNullOrWhiteSpace(txtQtdeInsumo.Text) || int.Parse(txtQtdeInsumo.Text).Equals(0))
+                throw new ValidationException("Informe a quantidade do item.");
+        }
+
         private void ValidaSalvarFormulario()
         {
-            if (string.IsNullOrWhiteSpace(txtDescricao.Text))
-                throw new ValidationException("A descrição do produto é obrigatória!");
+            if (composicao.Produto == null || composicao.Produto.Codigo.Equals(0))
+                throw new ValidationException("Selecione o produto principal da composição!");
             if (composicao.ItensComposcicao.Count.Equals(0))
                 throw new ValidationException("Insira ao menos um item para a composição!");
         }
@@ -64,6 +66,13 @@ namespace ArmazemUIs
         #endregion
 
         #region Operacoes
+
+        private void IniciaJanela()
+        {
+            InitializeComponent();
+            ProdutoController = new ProdutoController();
+            ComposicaoController = new ComposicaoController();
+        }
 
 
         /// <summary>
@@ -82,8 +91,8 @@ namespace ArmazemUIs
 
         private void PreencherFormulario()
         {
-            txtCodigo.Text = produtoSelecionado.Codigo.ToString();
-            PreencheProduto(produtoSelecionado);
+            txtCodigo.Text = composicao.Produto.Codigo.ToString();
+            PreencheProduto(composicao.Produto);
             AtualizaListaDeItens();
             AtualizaCustoTotal();
         }
@@ -108,8 +117,8 @@ namespace ArmazemUIs
                             PreencheItemComposicao(itemComposicaoSelecionado);
                             break;
                         case TIPO_PRODUTO.COMPOSTO:
-                            produtoSelecionado = buscaProdutosUI.ProdutoSelecionado;
-                            PreencheProduto(produtoSelecionado);
+                            composicao.Produto = buscaProdutosUI.ProdutoSelecionado;
+                            PreencheProduto(composicao.Produto);
                             break;
                         default:
                             break;
@@ -133,7 +142,7 @@ namespace ArmazemUIs
 
         private void LimparProduto()
         {
-            produtoSelecionado = new Produto();
+            composicao.Produto = new Produto();
 
             txtCodigo.Text =
                 txtDescricao.Text = string.Empty;
@@ -147,7 +156,7 @@ namespace ArmazemUIs
             {
                 if (gridInsumos.SelectedItem != null)
                 {
-                    composicao.ItensComposcicao.Remove((ItemComposicao)gridInsumos.SelectedItem);
+                    ComposicaoController.RemoverItem(composicao,(ItemComposicao)gridInsumos.SelectedItem);
                     AtualizaListaDeItens();
                     AtualizaCustoTotal();
                 }
@@ -190,7 +199,7 @@ namespace ArmazemUIs
                         if (!string.IsNullOrWhiteSpace(txtCodigoInsumo.Text))
                         {
 
-                            itemComposicaoSelecionado = Produto_Controller.PesquisaProduto(codigo, tipo);
+                            itemComposicaoSelecionado = ProdutoController.PesquisaProduto(codigo, tipo);
                             if (!itemComposicaoSelecionado.Codigo.Equals(0))
                                 PreencheItemComposicao(itemComposicaoSelecionado);
                             else
@@ -200,18 +209,20 @@ namespace ArmazemUIs
                     case TIPO_PRODUTO.COMPOSTO:
                         if (!string.IsNullOrWhiteSpace(txtCodigo.Text))
                         {
+                            composicao = ComposicaoController.PesquisaPorProdutoCodigo(int.Parse(txtCodigo.Text));
 
-                            produtoSelecionado = Produto_Controller.PesquisaProduto(codigo, tipo);
-                            if (!produtoSelecionado.Codigo.Equals(0))
-                            {
-                                composicao = ComposicaoController.PesquisaPorProdutoCodigo(int.Parse(txtCodigo.Text));
-                                if (composicao.Id > 0)
-                                    PreencherFormulario();
-                                else
-                                    PreencheProduto(produtoSelecionado);
-                            }
+                            if (composicao.Id > 0)
+                                PreencherFormulario();
                             else
-                                LimparProduto();
+                            {
+                                composicao = new Composicao();
+                                composicao.Produto = ProdutoController.PesquisaProduto(int.Parse(txtCodigo.Text),tipo);
+
+                                if (composicao.Produto.Codigo > 0)
+                                    PreencheProduto(composicao.Produto);
+                                else
+                                    LimparProduto();
+                            }
                         }
                         break;
                     default:
@@ -222,23 +233,6 @@ namespace ArmazemUIs
             {
 
                 throw;
-            }
-
-            if (!string.IsNullOrWhiteSpace(txtCodigoInsumo.Text))
-            {
-                try
-                {
-                    itemComposicaoSelecionado = Produto_Controller.PesquisaProduto(codigo, tipo);
-                    if (!itemComposicaoSelecionado.Codigo.Equals(0))
-                        PreencheItemComposicao(itemComposicaoSelecionado);
-                    else
-                        LimparItemComposicao();
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
             }
         }
 
@@ -251,13 +245,18 @@ namespace ArmazemUIs
 
             try
             {
+
+                ValidaAdicionarItem();
                 ItemComposicao itemComposicao = new ItemComposicao()
                 {
                     Produto = itemComposicaoSelecionado,
                     Qtde = int.Parse(txtQtdeInsumo.Text),
                 };
 
-                ComposicaoController.AdidionarItem(composicao, itemComposicao);
+                if (composicao.ItensComposcicao.Any(x => x.Produto.Codigo.Equals(itemComposicaoSelecionado.Codigo)))
+                    composicao.ItensComposcicao.Where(x => x.Produto.Codigo.Equals(itemComposicaoSelecionado.Codigo)).FirstOrDefault().Qtde = int.Parse(txtQtdeInsumo.Text);
+                else
+                    ComposicaoController.AdidionarItem(composicao, itemComposicao);
                 AtualizaListaDeItens();
                 AtualizaCustoTotal();
                 LimparItemComposicao();
@@ -279,7 +278,6 @@ namespace ArmazemUIs
         {
             statusBar.Text = string.Empty;
 
-            produtoSelecionado = new Produto();
             itemComposicaoSelecionado = new Produto();
             composicao = new Composicao();
 
@@ -289,6 +287,9 @@ namespace ArmazemUIs
             txtCodigoInsumo.Text =
             txtDescricaoInsumo.Text =
             txtQtdeInsumo.Text = string.Empty;
+
+            AtualizaListaDeItens();
+            AtualizaCustoTotal();
 
             txtCodigo.Focus();
         }
@@ -304,10 +305,10 @@ namespace ArmazemUIs
             {
                 ValidaSalvarFormulario();
 
-                composicao.Produto = produtoSelecionado;
+                composicao.Produto = composicao.Produto;
                 ComposicaoController.Salvar(composicao);
 
-                txtCodigo.Text = produtoSelecionado.Codigo.ToString();
+                txtCodigo.Text = composicao.Produto.Codigo.ToString();
                 statusBar.Text = "Produto gravado com sucesso";
             }
             catch (ValidationException ex)

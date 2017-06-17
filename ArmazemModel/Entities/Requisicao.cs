@@ -8,7 +8,6 @@ namespace ArmazemModel.Entities
     [Table("Requisicao")]
     public partial class Requisicao
     {
-       
         public Requisicao()
         {
             ItensRequisicao = new List<ItemRequisicao>();
@@ -18,6 +17,8 @@ namespace ArmazemModel.Entities
         public int Id { get; set; }
         public DateTime DataAbertura { get; set; }
         public string Responsavel { get; set; }
+        public bool Efetivado { get; set; }
+        public DateTime DataEfetivacao { get; set; }
     
         public virtual List<ItemRequisicao> ItensRequisicao { get; set; }
     }
