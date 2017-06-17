@@ -1,22 +1,22 @@
 ﻿using ArmazemModel;
+using ArmazemModel.DAL;
+using ArmazemModel.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static ArmazemModel.Util;
 
 namespace ArmazemController
 {
-    public class Produto_Controller
+    public class ProdutoController
     {
-        Produto_Insumo_Controller insumosController;
+        ItemComposicaoController itemComposicaoController;
         ProdutoDAL produtoDAL = null;
 
-        public Produto_Controller()
+        public ProdutoController()
         {
             produtoDAL = new ProdutoDAL();
-            insumosController = new Produto_Insumo_Controller();
+            itemComposicaoController = new ItemComposicaoController();
         }
 
         private static void ValidSaveProduto(Produto produto)
@@ -29,38 +29,19 @@ namespace ArmazemController
 
         public void Salvar(Produto produto)
         {
-            UnitOfWork unitOfWork = null;
-
             try
             {
                 ValidSaveProduto(produto);
-                unitOfWork = new UnitOfWork(true);
-                unitOfWork.BeginTransaction();
 
-                SetContext(unitOfWork.Context);
-                insumosController.SetContext(unitOfWork.Context);
 
-                List<Produto_Insumo> insumos = produto.Produto_Insumo.ToList();
-                produto.Produto_Insumo = null;
-
-                if (produto.Codigo.Equals(0))
+                if (produtoDAL.FindById(produto.Codigo) == null)
                     produtoDAL.Add(produto);
                 else
                     produtoDAL.Update(produto);
 
-                insumos.ForEach(x =>
-                {
-                    x.Produto_Codigo = produto.Codigo;
-                    insumosController.Salvar(x);
-                });
-
-                unitOfWork.Commit();
-
             }
             catch (Exception)
             {
-                if (unitOfWork != null)
-                    unitOfWork.RollBack();
                 throw;
             }
         }
@@ -77,11 +58,11 @@ namespace ArmazemController
             }
         }
 
-        public Produto PesquisaProdutoSimplesPorCodigo(int codigo)
+        public Produto PesquisaProduto(int codigo, TIPO_PRODUTO tipo)
         {
             try
             {
-                return produtoDAL.Get(x => x.Tipo.Equals((int)TIPO_PRODUTO.SIMPLES) && x.Codigo.Equals(codigo)) ?? new Produto();
+                return produtoDAL.Get(x => x.Tipo.Equals((int)tipo) && x.Codigo.Equals(codigo)) ?? new Produto();
             }
             catch (Exception)
             {
@@ -100,19 +81,7 @@ namespace ArmazemController
                 throw;
             }
         }
-
-        public List<Produto> Listar(Func<Produto, bool> expressao)
-        {
-            try
-            {
-                return produtoDAL.GetList(expressao) ?? new List<Produto>();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
+        
         public List<Produto> ListarTodos()
         {
             try
@@ -125,9 +94,9 @@ namespace ArmazemController
             }
         }
 
-        public List<Produto> ListarPorDescricao(string descricao)
+        public List<Produto> ListarPorDescricaoETipo(string descricao, TIPO_PRODUTO tipo)
         {
-            return produtoDAL.GetList(x => x.Descricao.ToUpper().Contains(descricao.ToUpper()));
+            return produtoDAL.GetList(x => x.Descricao.ToUpper().Contains(descricao.ToUpper()) && x.Tipo.Equals((int)tipo));
         }
 
         public void SetContext(ArmazemEntities contexto)

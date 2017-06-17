@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ArmazemModel
 {
-    public partial class Produto
+    public partial class ProdutoPartial
     {
 
     }
 
-    public partial class Requisicao
+    public partial class RequisicaoPartial
     {
     }
 }

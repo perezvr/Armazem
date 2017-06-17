@@ -1,18 +1,10 @@
 ﻿using ArmazemController;
 using ArmazemModel;
+using ArmazemModel.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using static ArmazemModel.Util;
 
 namespace ArmazemUIs
 {
@@ -21,14 +13,15 @@ namespace ArmazemUIs
     /// </summary>
     public partial class BuscaProdutosUI : Window
     {
-        Produto_Controller Produto_Controller { get; set; }
-
+        ProdutoController Produto_Controller { get; set; }
         public Produto ProdutoSelecionado { get; set; }
+        TIPO_PRODUTO tipoProduto;
 
-        public BuscaProdutosUI()
+        public BuscaProdutosUI(TIPO_PRODUTO tipoProduto)
         {
             InitializeComponent();
-            Produto_Controller = new Produto_Controller();
+            this.tipoProduto = tipoProduto;
+            Produto_Controller = new ProdutoController();
         }
 
         private void SelecionarProduto()
@@ -60,7 +53,7 @@ namespace ArmazemUIs
             try
             {
                 if (!string.IsNullOrWhiteSpace(txtDescricao.Text))
-                    gridProdutos.ItemsSource = Produto_Controller.ListarPorDescricao(txtDescricao.Text);
+                    gridProdutos.ItemsSource = Produto_Controller.ListarPorDescricaoETipo(txtDescricao.Text, tipoProduto);
             }
             catch (Exception ex)
             {

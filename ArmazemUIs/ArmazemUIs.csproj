@@ -70,11 +70,11 @@
     <Compile Include="ComposicaoUI.xaml.cs">
       <DependentUpon>ComposicaoUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListComposicoesUI.xaml.cs">
+      <DependentUpon>ListComposicoesUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ListProdutosUI.xaml.cs">
       <DependentUpon>ListProdutosUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoCompostoUI.xaml.cs">
-      <DependentUpon>ProdutoCompostoUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
     <Page Include="BuscaProdutosUI.xaml">
@@ -86,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ComposicaoUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListComposicoesUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,19 +109,8 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ProdutoCompostoUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ProdutoSimplesUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProdutoSimplesUI.xaml.cs">
-      <DependentUpon>ProdutoSimplesUI.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

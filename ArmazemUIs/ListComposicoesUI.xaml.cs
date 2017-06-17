@@ -2,28 +2,27 @@
 using ArmazemModel;
 using ArmazemModel.Entities;
 using System;
-using System.Data.Entity.Infrastructure;
 using System.Windows;
 using System.Windows.Input;
 
 namespace ArmazemUIs
 {
     /// <summary>
-    /// Interaction logic for ListProdutosUI.xaml
+    /// Interaction logic for ListComposicoesUI.xaml
     /// </summary>
-    public partial class ListProdutosUI : Window
+    public partial class ListComposicoesUI : Window
     {
-        ProdutoController Produto_Controller { get; set; }
+        ComposicaoController Composicao_Controller { get; set; }
 
-        public ListProdutosUI()
+        public ListComposicoesUI()
         {
             InitializeComponent();
-            Produto_Controller = new ProdutoController();
+            Composicao_Controller = new ComposicaoController();
         }
 
-        private void AtualizaListaDeProdutos()
+        private void AtualizaListaDeComposicoes()
         {
-            gridProdutos.ItemsSource = Produto_Controller.ListarTodos();
+            gridComposicoes.ItemsSource = Composicao_Controller.ListarTodos();
         }
 
         #region Operações
@@ -34,10 +33,10 @@ namespace ArmazemUIs
 
             try
             {
-                CadastroProdutoUI cadastroProdutosUI = new CadastroProdutoUI();
-                cadastroProdutosUI.Owner = this;
-                cadastroProdutosUI.ShowDialog();
-                AtualizaListaDeProdutos();
+                ComposicaoUI composicaoUI = new ComposicaoUI();
+                composicaoUI.Owner = this;
+                composicaoUI.ShowDialog();
+                AtualizaListaDeComposicoes();
             }
             catch (Exception ex)
             {
@@ -50,18 +49,18 @@ namespace ArmazemUIs
         private void ExcluirRegistro()
         {
             statusBar.Text = string.Empty;
-            Produto produto = (Produto)gridProdutos.SelectedItem;
+            Composicao composicao = (Composicao)gridComposicoes.SelectedItem;
 
             try
             {
-                if (produto != null)
+                if (composicao != null)
                 {
 
-                    if (Util.MensagemDeConfirmacao($"Deseja realmente excluir o produto {produto.Codigo}?"))
+                    if (Util.MensagemDeConfirmacao($"Deseja realmente excluir a composicao {composicao.Id}?"))
                     {
-                        Produto_Controller.Deletar(produto.Codigo);
-                        AtualizaListaDeProdutos();
-                        statusBar.Text = "Produto excluído com sucesso.";
+                        Composicao_Controller.Deletar(composicao);
+                        AtualizaListaDeComposicoes();
+                        statusBar.Text = "Composição excluída com sucesso.";
                     }
                 }
 
@@ -71,11 +70,6 @@ namespace ArmazemUIs
             catch (ValidationException ex)
             {
                 statusBar.Text = ex.Message;
-            }
-            catch (DbUpdateException)
-            {
-                Util.MensagemDeAtencao($"O produto {produto.Codigo} não pode ser excluído pois está relacionado a uma ou mais requisições de saída!");
-
             }
             catch (Exception ex)
             {
@@ -90,13 +84,13 @@ namespace ArmazemUIs
             statusBar.Text = string.Empty;
             try
             {
-                if (gridProdutos.SelectedItem != null)
+                if (gridComposicoes.SelectedItem != null)
                 {
 
-                    CadastroProdutoUI cadastroProdutoUI = new CadastroProdutoUI(((Produto)gridProdutos.SelectedItem));
-                    cadastroProdutoUI.Owner = this;
-                    cadastroProdutoUI.ShowDialog();
-                    AtualizaListaDeProdutos();
+                    ComposicaoUI composicaoUI = new ComposicaoUI(((Composicao)gridComposicoes.SelectedItem));
+                    composicaoUI.Owner = this;
+                    composicaoUI.ShowDialog();
+                    AtualizaListaDeComposicoes();
 
                 }
                 else
@@ -115,28 +109,19 @@ namespace ArmazemUIs
 
         #endregion
 
-        #region Eventos
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            AtualizaListaDeProdutos();
+            AtualizaListaDeComposicoes();
         }
+
         private void gridProdutos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             SelecionarRegistroParaEdicao();
         }
 
-
-        #region Button_Click
-
         private void btnSelecionar_Click(object sender, RoutedEventArgs e)
         {
             SelecionarRegistroParaEdicao();
-        }
-
-        private void btnNovo_Click(object sender, RoutedEventArgs e)
-        {
-            IncluirNovoRegistro();
         }
 
         private void btnExcluir_Click(object sender, RoutedEventArgs e)
@@ -144,11 +129,9 @@ namespace ArmazemUIs
             ExcluirRegistro();
         }
 
-        #endregion
-
-        #endregion
+        private void btnNovo_Click(object sender, RoutedEventArgs e)
+        {
+            IncluirNovoRegistro();
+        }
     }
 }
-
-//TODO arrumar o GetPrecoCusto para contemplar o Produto Composto
-

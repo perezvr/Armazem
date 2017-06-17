@@ -1,4 +1,6 @@
 ﻿using ArmazemModel;
+using ArmazemModel.DAL;
+using ArmazemModel.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +11,14 @@ namespace ArmazemController
 {
     public class Item_Requisicao_Controller
     {
-        Item_RequisicaoDAL item_RequisicaoDAL = null;
+        ItemRequisicaoDAL item_RequisicaoDAL = null;
 
         public Item_Requisicao_Controller()
         {
-            item_RequisicaoDAL = new Item_RequisicaoDAL(); 
+            item_RequisicaoDAL = new ItemRequisicaoDAL(); 
         }
 
-        public Item_Requisicao BuscaPorCodigo(int id)
+        public ItemRequisicao BuscaPorCodigo(int id)
         {
             try
             {

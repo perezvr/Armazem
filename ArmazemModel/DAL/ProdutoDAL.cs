@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ArmazemModel.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArmazemModel
+namespace ArmazemModel.DAL
 {
     public class ProdutoDAL : DAL<Produto> { }
 }

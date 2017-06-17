@@ -1,4 +1,4 @@
-﻿namespace ArmazemModel
+﻿namespace ArmazemModel.DAL
 {
     public class UnitOfWork
     {

@@ -1,9 +1,6 @@
-﻿using ArmazemModel;
+﻿using ArmazemModel.DAL;
+using ArmazemModel.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArmazemController
 {
@@ -21,7 +18,7 @@ namespace ArmazemController
             try
             {
 
-                if (requisicao.Codigo.Equals(0))
+                if (requisicao.Id.Equals(0))
                     requisicaoDAL.Add(requisicao);
                 else
                     requisicaoDAL.Update(requisicao);

@@ -11,12 +11,13 @@
     <Grid>
         <GroupBox Margin="10,10,10,0" Header="Dados do produto" Height="135" VerticalAlignment="Top">
             <Grid>
-                <Label Content="Código" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtCodigo" TextAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99"/>
-                <TextBox x:Name="txtDescricao" Height="23" VerticalContentAlignment="Center" Margin="114,29,10,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="50"/>
-                <Label Content="Descrição" HorizontalAlignment="Left" Margin="114,3,0,0" VerticalAlignment="Top"/>
+                <Label Content="Código" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtCodigo" TextAlignment="Right" KeyUp="txtCodigo_KeyUp" PreviewTextInput="txtCodigo_PreviewTextInput" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" LostFocus="txtCodigo_LostFocus"/>
+                <TextBox x:Name="txtDescricao" IsEnabled="False" Height="23" VerticalContentAlignment="Center" Margin="114,26,10,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="50"/>
+                <Label Content="Descrição" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Top"/>
                 <Label  Content="Preço de Venda" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtPrecoVenda" VerticalContentAlignment="Center" HorizontalAlignment="Left" TextAlignment="Right" Height="23" Margin="10,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99"/>
+                <TextBox x:Name="txtPrecoVenda" IsEnabled="False" VerticalContentAlignment="Center" HorizontalAlignment="Left" TextAlignment="Right" Height="23" Margin="10,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99"/>
+                <Label Content="F3 - Pesquisar" Foreground="Gray" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" FontSize="10"/>
             </Grid>
 
         </GroupBox>
@@ -51,7 +52,7 @@
             </Grid>
         </GroupBox>
         <Button x:Name="btnSalvar" Content="_Salvar" HorizontalAlignment="Right" Margin="0,0,111,35" VerticalAlignment="Bottom" Width="75" Click="btnSalvar_Click"/>
-        <Button Content="_Excluir" HorizontalAlignment="Right" Margin="0,0,10,35" VerticalAlignment="Bottom" Width="75"/>
+        <Button x:Name="btnExcluir" Content="_Excluir" HorizontalAlignment="Right" Margin="0,0,10,35" VerticalAlignment="Bottom" Width="75" Click="btnExcluir_Click"/>
         <Button x:Name="btnNovo" Content="_Nova" Margin="10,0,0,35" HorizontalAlignment="Left" Width="75" Height="20" VerticalAlignment="Bottom" Click="btnNovo_Click"/>
         <StatusBar Height="24" VerticalAlignment="Bottom">
             <StatusBarItem>

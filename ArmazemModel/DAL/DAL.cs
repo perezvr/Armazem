@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ArmazemModel.DAL;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArmazemModel
+namespace ArmazemModel.DAL
 {
     public class DAL<T> : IDAL<T> where T : class
     {
@@ -91,7 +92,6 @@ namespace ArmazemModel
         {
             Contexto = contexto;
 
-            Contexto.Set<T>().Attach(objeto);
             Contexto.Entry(objeto).State = EntityState.Modified;
             Contexto.SaveChanges();
         }
@@ -110,5 +110,11 @@ namespace ArmazemModel
         {
             return Contexto.Set<T>();
         }
+
+        public void SetContext(ArmazemEntities contexto)
+        {
+            Contexto = contexto;
+        }
+
     }
 }

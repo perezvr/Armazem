@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SSDTUnitTestPath Condition="'$(SSDTUnitTestPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB</SSDTUnitTestPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SSDTPath Condition="'$(SSDTPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\130</SSDTPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -49,73 +58,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmazemDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ArmazemDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ArmazemDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ArmazemDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ArmazemDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ArmazemDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Composicao.cs">
-      <DependentUpon>ArmazemDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ComposicaoDAL.cs" />
-    <Compile Include="DAL.cs" />
-    <Compile Include="IDAL.cs" />
-    <Compile Include="Item_Requisicao.cs">
-      <DependentUpon>ArmazemDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Item_RequisicaoDAL.cs" />
+    <Compile Include="Entities\Composicao.cs" />
+    <Compile Include="DAL\ComposicaoDAL.cs" />
+    <Compile Include="DAL\DAL.cs" />
+    <Compile Include="DAL\ArmazemEntities.cs" />
+    <Compile Include="DAL\IDAL.cs" />
+    <Compile Include="Entities\ItemRequisicao.cs" />
+    <Compile Include="DAL\ItemRequisicaoDAL.cs" />
     <Compile Include="Partials.cs" />
-    <Compile Include="Produto.cs">
-      <DependentUpon>ArmazemDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProdutoDAL.cs" />
-    <Compile Include="Produto_Insumo.cs">
-      <DependentUpon>ArmazemDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Produto_InsumoDAL.cs" />
+    <Compile Include="Entities\Produto.cs" />
+    <Compile Include="DAL\ProdutoDAL.cs" />
+    <Compile Include="Entities\ItemComposicao.cs" />
+    <Compile Include="DAL\ItemComposicaoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requisicao.cs">
-      <DependentUpon>ArmazemDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RequisicaoDAL.cs" />
-    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="Entities\Requisicao.cs" />
+    <Compile Include="DAL\RequisicaoDAL.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="ArmazemDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ArmazemDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ArmazemDataModel.edmx.diagram">
-      <DependentUpon>ArmazemDataModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="ArmazemDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ArmazemDataModel.edmx</DependentUpon>
-      <LastGenOutput>ArmazemDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ArmazemDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ArmazemDataModel.edmx</DependentUpon>
-      <LastGenOutput>ArmazemDataModel.cs</LastGenOutput>
-    </Content>
+  <ItemGroup />
+  <ItemGroup Condition="$(VisualStudioVersion) == '15.0'">
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTPath)\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTesting, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTUnitTestPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>$(SSDTUnitTestPath)\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <SsdtUnitTestVersion>3.1</SsdtUnitTestVersion>
+  </PropertyGroup>
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="$(VisualStudioVersion) != '15.0' And '$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="$(VisualStudioVersion) != '15.0' And '$(SQLDBExtensionsRefPath)' == ''" />
 </Project>

@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArmazemModel
+namespace ArmazemController
 {
-    public class Produto_InsumoDAL : DAL<Produto_Insumo> { }
+    class Testes
+    {
+
+    }
 }

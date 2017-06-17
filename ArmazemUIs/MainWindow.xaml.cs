@@ -1,5 +1,7 @@
 ﻿using ArmazemController;
 using ArmazemModel;
+using ArmazemModel.DAL;
+using ArmazemModel.Entities;
 using System;
 using System.Linq;
 using System.Windows;
@@ -12,19 +14,34 @@ namespace ArmazemUIs
     /// </summary>
     public partial class MainWindow : Window
     {
+        ProdutoDAL pDAL = new ProdutoDAL();
+
         public MainWindow()
         {
             InitializeComponent();
-            //teste();
+
+            //cria o banco de dados caso ainda não exista
+            ArmazemEntities db = new ArmazemEntities();
+            db.Database.CreateIfNotExists();
+
+            Produto p = pDAL.FindById(2);
+            Produto i = pDAL.FindById(3);
+
+            ItemComposicao ic = new ItemComposicao();
+            ic.Produto = i;
+            ic.Qtde = 5;
+
+            Composicao c = new Composicao();
+
+            c.Produto = p;
+            c.ItensComposcicao.Add(ic);
+
+            //ComposicaoController control = new ComposicaoController();
+            //control.Salvar(c);
+
         }
 
-        private void teste()
-        {
-            Produto_Controller pc = new Produto_Controller();
-            Produto p1 = pc.PesquisaPorCodigo(20);
-
-
-        }
+  
         private void AcessaCadastroProdutos(TIPO_PRODUTO tipoCadastro)
         {
             try
@@ -57,18 +74,7 @@ namespace ArmazemUIs
             }
         }
 
-        #region Chamadas do manu
-
-        private void menuProdutosSimples_Click(object sender, RoutedEventArgs e)
-        {
-        }
-        
-        private void menuProdutosCompostos_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        #endregion
+        #region Chamadas do menu
 
         private void menuProdutos_Click(object sender, RoutedEventArgs e)
         {
@@ -78,7 +84,21 @@ namespace ArmazemUIs
 
         private void menuComposicao_Click(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                ListComposicoesUI listComposicoesUI = new ListComposicoesUI();
+                listComposicoesUI.Owner = this;
+                listComposicoesUI.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                statusBar.Text = ex.InnerException != null
+                    ? ex.InnerException.Message
+                    : ex.Message;
+            }
         }
+
+        #endregion
+
     }
 }

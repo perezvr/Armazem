@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ArmazemModel.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArmazemModel
+namespace ArmazemModel.DAL
 {
     interface IDAL<T> where T : class
     {
