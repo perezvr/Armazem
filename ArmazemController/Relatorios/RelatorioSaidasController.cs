@@ -54,7 +54,8 @@ namespace ArmazemController.Relatorios
                                     Produto = y.Produto,
                                     Qtde = x.Qtde * y.Qtde,
                                     RequisicaoId = x.Requisicao.Id,
-                                    PrecoCusto = x.PrecoCusto,
+                                    PrecoCusto = y.Produto.PrecoCusto.Value,
+                                    PrecoVenda = y.Produto.PrecoVenda.Value
                                 };
 
                                 listaFinal.Add(itemDecomposto);

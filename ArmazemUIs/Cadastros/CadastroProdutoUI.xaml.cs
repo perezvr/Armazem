@@ -30,6 +30,8 @@ namespace ArmazemUIs.Cadastros
 
             produtoSelecionado = ProdutoController.PesquisaPorCodigo(produto.Codigo);
             PreencherFormulario();
+            radsimples.IsEnabled = false;
+            radComposto.IsEnabled = false;
         }
 
         #endregion
@@ -80,6 +82,11 @@ namespace ArmazemUIs.Cadastros
         {
             try
             {
+                if (produtoSelecionado.Tipo.Equals((int)TIPO_PRODUTO.SIMPLES))
+                    radsimples.IsChecked = true;
+                else
+                    radComposto.IsChecked = true;
+
                 txtCodigo.Text = produtoSelecionado.Codigo.ToString();
                 txtDescricao.Text = produtoSelecionado.Descricao;
                 txtPrecoCusto.Text = produtoSelecionado.PrecoCusto.HasValue
@@ -92,10 +99,6 @@ namespace ArmazemUIs.Cadastros
                     ? produtoSelecionado.EstoqueAtual.Value.ToString()
                     : string.Empty;
 
-                if (produtoSelecionado.Tipo.Equals((int)TIPO_PRODUTO.SIMPLES))
-                    radsimples.IsChecked = true;
-                else
-                    radComposto.IsChecked = true;
             }
             catch (Exception ex)
             {
@@ -211,13 +214,19 @@ namespace ArmazemUIs.Cadastros
 
         private void radsimples_Checked(object sender, RoutedEventArgs e)
         {
-            txtEstoqueAtual.IsEnabled = true;
+            txtPrecoCusto.IsEnabled =
+                txtPrecoVenda.IsEnabled =
+                txtEstoqueAtual.IsEnabled = true;
         }
 
         private void radComposto_Checked(object sender, RoutedEventArgs e)
         {
-            txtEstoqueAtual.IsEnabled = false;
-            txtEstoqueAtual.Text = string.Empty;
+            txtPrecoCusto.Text =
+                txtPrecoVenda.Text =
+                txtEstoqueAtual.Text = string.Empty;
+            txtPrecoCusto.IsEnabled = 
+                txtPrecoVenda.IsEnabled = 
+                txtEstoqueAtual.IsEnabled = false;
         }
 
         #endregion

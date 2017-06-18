@@ -89,6 +89,8 @@ namespace ArmazemUIs.Cadastros
         private void AtualizaCustoTotal()
         {
             txtCustoTotal.Text = composicao.ItensComposcicao.Sum(x => x.Qtde * x.Produto.PrecoCusto).Value.ToString("n2");
+            txtPrecoVenda.Text = composicao.ItensComposcicao.Sum(x => x.Qtde * x.Produto.PrecoVenda).Value.ToString("n2");
+
         }
 
         private void AtualizaListaDeItens()
@@ -192,7 +194,7 @@ namespace ArmazemUIs.Cadastros
         {
             txtCodigo.Text = produto.Codigo.ToString();
             txtDescricao.Text = produto.Descricao;
-            txtPrecoVenda.Text = produto.PrecoVenda.Value.ToString("n2");
+            txtPrecoVenda.Text = composicao.ItensComposcicao.Sum(x => x.Qtde * x.Produto.PrecoVenda).Value.ToString("n2");
         }
 
         private void CarregaProdutoPorCodigo(int codigo, TIPO_PRODUTO tipo)
@@ -316,7 +318,8 @@ namespace ArmazemUIs.Cadastros
             {
                 ValidaSalvarFormulario();
 
-                composicao.Produto = composicao.Produto;
+                composicao.Produto.PrecoCusto = composicao.ItensComposcicao.Sum(x => x.Produto.PrecoCusto * x.Qtde);
+                composicao.Produto.PrecoVenda = composicao.ItensComposcicao.Sum(x => x.Produto.PrecoVenda * x.Qtde);
                 ComposicaoController.Salvar(composicao);
 
                 txtCodigo.Text = composicao.Produto.Codigo.ToString();

@@ -10,6 +10,7 @@ namespace ArmazemModel.Entities
         public int Id { get; set; }
         public int Qtde { get; set; }
         public decimal PrecoCusto { get; set; }
+        public decimal PrecoVenda { get; set; }
         public int RequisicaoId { get; set; }
         public int ProdutoCodigo { get; set; }
 
@@ -30,7 +31,7 @@ namespace ArmazemModel.Entities
         {
             get
             {
-                return (Qtde * Produto.PrecoVenda).Value.ToString("n2");
+                return (Qtde * PrecoVenda).ToString("n2");
             }
         }
     }

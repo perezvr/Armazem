@@ -153,6 +153,9 @@ namespace ArmazemController
                     Qtde = qtde,
                     PrecoCusto = produto.PrecoCusto.HasValue
                         ? produto.PrecoCusto.Value
+                        : 0,
+                        PrecoVenda = produto.PrecoVenda.HasValue
+                        ? produto.PrecoVenda.Value
                         : 0
                 };
 

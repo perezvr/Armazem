@@ -34,7 +34,7 @@ namespace ArmazemModel.DAL
         public void Update(Composicao objeto)
         {
 
-            Contexto.Entry(objeto.Produto).State = EntityState.Unchanged;
+            Contexto.Entry(objeto.Produto).State = EntityState.Modified;
 
             foreach (var item in objeto.ItensComposcicao)
             {

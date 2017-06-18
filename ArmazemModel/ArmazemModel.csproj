@@ -68,7 +68,6 @@
     <Compile Include="DAL\IDAL.cs" />
     <Compile Include="Entities\ItemRequisicao.cs" />
     <Compile Include="DAL\ItemRequisicaoDAL.cs" />
-    <Compile Include="Partials.cs" />
     <Compile Include="Entities\Produto.cs" />
     <Compile Include="DAL\ProdutoDAL.cs" />
     <Compile Include="Entities\ItemComposicao.cs" />
