@@ -3,6 +3,7 @@ using ArmazemModel;
 using ArmazemModel.DAL;
 using ArmazemModel.Entities;
 using ArmazemUIs.Cadastros;
+using ArmazemUIs.Relatórios;
 using ArmazemUIs.Requisicoes;
 using System;
 using System.Linq;
@@ -42,8 +43,8 @@ namespace ArmazemUIs
 
             //con.Salvar(c);
 
-        }   
-        
+        }
+
         private void AcessaCadastroProdutos()
         {
             try
@@ -92,6 +93,38 @@ namespace ArmazemUIs
             }
         }
 
+        private void AcessaRelatorioRequisicoes()
+        {
+            try
+            {
+                RelatoriosUI relatoriosUI = new RelatoriosUI(TIPO_RELATORIO.REQUISICOES);
+                relatoriosUI.Owner = this;
+                relatoriosUI.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                statusBar.Text = ex.InnerException != null
+                    ? ex.InnerException.Message
+                    : ex.Message;
+            }
+        }
+
+        private void AcessaRelatorioSaidas()
+        {
+            try
+            {
+                RelatoriosUI relatoriosUI = new RelatoriosUI(TIPO_RELATORIO.SAIDAS);
+                relatoriosUI.Owner = this;
+                relatoriosUI.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                statusBar.Text = ex.InnerException != null
+                    ? ex.InnerException.Message
+                    : ex.Message;
+            }
+        }
+
         #region Chamadas do menu
 
         private void menuProdutos_Click(object sender, RoutedEventArgs e)
@@ -109,6 +142,17 @@ namespace ArmazemUIs
             AcessaCadastroRequisicao();
         }
 
+        private void manuRelatorioRequisicoes_Click(object sender, RoutedEventArgs e)
+        {
+            AcessaRelatorioRequisicoes();
+        }
+
+        private void manuRelatorioSaidasEstoque_Click(object sender, RoutedEventArgs e)
+        {
+            AcessaRelatorioSaidas();
+        }
+
         #endregion
+
     }
 }

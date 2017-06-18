@@ -35,6 +35,14 @@ namespace ArmazemModel
             [Description("Todos")]
             TODOS = 3,
         }
+
+        public enum TIPO_RELATORIO : int
+        {
+            [Description("Requisições efetuadas")]
+            REQUISICOES = 1,
+            [Description("Saídas de estoque")]
+            SAIDAS = 2,
+        }
     }
 
     public static class Extensions

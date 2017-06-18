@@ -10,7 +10,7 @@ namespace ArmazemController
 {
     public class RequisicaoController
     {
-        RequisicaoDAL requisicaoDAL = null;
+        RequisicaoDAL requisicaoDAL;
         public Requisicao Requisicao { get; set; }
         ItemRequisicaoController itemRequisicaoController;
         ComposicaoController composicaoController;
@@ -151,7 +151,9 @@ namespace ArmazemController
                 {
                     Produto = produto,
                     Qtde = qtde,
-                    PrecoCusto = produto.PrecoCusto.Value
+                    PrecoCusto = produto.PrecoCusto.HasValue
+                        ? produto.PrecoCusto.Value
+                        : 0
                 };
 
                 ValidaAdicionarItem(itemRequisicao);

@@ -1,0 +1,60 @@
+﻿<Window x:Class="ArmazemUIs.Relatórios.RelatoriosUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="569" Width="822"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+    <Grid>
+        <GroupBox Header="Filtro" Height="100" Margin="10,10,12,0" VerticalAlignment="Top">
+            <Grid>
+                <Label  Content="Data Inicial" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top"/>
+                <DatePicker x:Name="dtpDataInicial" Margin="10,28,650,0" VerticalAlignment="Top"/>
+                <Label  Content="Data Final" HorizontalAlignment="Left" Margin="147,5,0,0" VerticalAlignment="Top"/>
+                <DatePicker x:Name="dtpDataFinal" Margin="147,28,513,0" VerticalAlignment="Top"/>
+
+            </Grid>
+        </GroupBox>
+        <DataGrid x:Name="gridRequisicoes" IsReadOnly="True" Background="White" RowBackground="#FFCDE7F0" AlternatingRowBackground="#FFF0EAEA" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" Margin="10,115,10,136">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Requisicao" Width="70" Binding="{Binding RequisicaoId}"/>
+                <DataGridTextColumn Header="Produto" Width="*" Binding="{Binding Produto.Descricao}"/>
+                <DataGridTextColumn Header="Qtde Requisitada" Width="100" Binding="{Binding Qtde}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Preço de Custo Total" Width="120" Binding="{Binding GetSubTotal}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Preço de Venda Total" Width="120" Binding="{Binding GetSubTotalVenda}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnVisualizar" Content="_Visualizar" HorizontalAlignment="Right" Margin="0,0,112,43" VerticalAlignment="Bottom" Width="76" Click="btnVisualizar_Click"/>
+        <Button x:Name="btnLimpar" Content="_Limpar" HorizontalAlignment="Right" Margin="0,0,12,43" VerticalAlignment="Bottom" Width="76" Click="btnLimpar_Click"/>
+        <StatusBar Height="24" VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="statusBar"/>
+            </StatusBarItem>
+        </StatusBar>
+        <TextBox x:Name="txtCustoTotal" IsEnabled="False" VerticalContentAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" Height="23" Margin="0,0,136,82" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="116"/>
+        <Label  Content="Preço de Custo Total" HorizontalAlignment="Right" Margin="0,0,133,105" VerticalAlignment="Bottom" Width="119"/>
+        <TextBox x:Name="txtVendaTotal" IsEnabled="False" VerticalContentAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" Height="23" Margin="0,0,12,82" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="116"/>
+        <Label  Content="Preço de Venda Total" HorizontalAlignment="Right" Margin="0,0,4,105" VerticalAlignment="Bottom" Width="124"/>
+        <Label x:Name="lblObs" Content="Obs.: Este relatório só contempla as requisições efetivadas." Foreground="Gray" HorizontalAlignment="Left" Margin="10,409,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

@@ -46,6 +46,8 @@
     <Compile Include="ProdutoController.cs" />
     <Compile Include="ItemComposicaoController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relatorios\RelatorioRequisicoesController.cs" />
+    <Compile Include="Relatorios\RelatorioSaidasController.cs" />
     <Compile Include="RequisicaoController.cs" />
     <Compile Include="Testes.cs" />
   </ItemGroup>

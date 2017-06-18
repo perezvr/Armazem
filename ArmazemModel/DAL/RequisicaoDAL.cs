@@ -1,6 +1,9 @@
 ﻿using ArmazemModel.Entities;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Windows.Documents;
 
 namespace ArmazemModel.DAL
 {

@@ -22,7 +22,15 @@ namespace ArmazemModel.Entities
         {
             get
             {
-                return (Qtde * Produto.PrecoCusto).Value.ToString("n2");
+                return (Qtde * PrecoCusto).ToString("n2");
+            }
+        }
+
+        public string GetSubTotalVenda
+        {
+            get
+            {
+                return (Qtde * Produto.PrecoVenda).Value.ToString("n2");
             }
         }
     }

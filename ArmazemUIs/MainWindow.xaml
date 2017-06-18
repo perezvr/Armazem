@@ -17,7 +17,8 @@
                 <MenuItem x:Name="menuRequisicao" Header="_Requisição de saída de mercadoria" Click="menuRequisicao_Click" />
             </MenuItem>
             <MenuItem Header="R_elatórios">
-                <MenuItem Header="Requisição de saída de mercadoria" />
+                <MenuItem x:Name="manuRelatorioRequisicoes" Header="Relatório de requisições efetuadas" Click="manuRelatorioRequisicoes_Click" />
+                <MenuItem x:Name="manuRelatorioSaidasEstoque" Header="Relatório de saídas de estoque" Click="manuRelatorioSaidasEstoque_Click"/>
             </MenuItem>
         </Menu>
         <TextBlock Text="Sistema de Controle de Armazém" Margin="0,0,10,29" FontSize="50" HorizontalAlignment="Right" Width="743" Height="64" VerticalAlignment="Bottom"/>

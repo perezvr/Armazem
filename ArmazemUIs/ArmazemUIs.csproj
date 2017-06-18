@@ -76,6 +76,9 @@
     <Compile Include="Cadastros\ListProdutosUI.xaml.cs">
       <DependentUpon>ListProdutosUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Relatórios\RelatoriosUI.xaml.cs">
+      <DependentUpon>RelatoriosUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Requisicoes\ListRequisicoesUI.xaml.cs">
       <DependentUpon>ListRequisicoesUI.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Relatórios\RelatoriosUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Requisicoes\ListRequisicoesUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
