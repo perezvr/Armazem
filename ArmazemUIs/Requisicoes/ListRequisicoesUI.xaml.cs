@@ -5,27 +5,27 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ArmazemUIs
+namespace ArmazemUIs.Requisicoes
 {
     /// <summary>
-    /// Interaction logic for ListComposicoesUI.xaml
+    /// Interaction logic for ListRequisicoesUI.xaml
     /// </summary>
-    public partial class ListComposicoesUI : Window
+    public partial class ListRequisicoesUI : Window
     {
-        ComposicaoController Composicao_Controller { get; set; }
+        RequisicaoController RequisicaoController { get; set; }
 
-        public ListComposicoesUI()
+        public ListRequisicoesUI()
         {
             InitializeComponent();
-            Composicao_Controller = new ComposicaoController();
-        }
-
-        private void AtualizaListaDeComposicoes()
-        {
-            gridComposicoes.ItemsSource = Composicao_Controller.ListarTodos();
+            RequisicaoController = new RequisicaoController();
         }
 
         #region Operações
+
+        private void AtualizaListaDeRequisicoes()
+        {
+            gridRequisicoes.ItemsSource = RequisicaoController.ListarTodas();
+        }
 
         private void IncluirNovoRegistro()
         {
@@ -33,10 +33,10 @@ namespace ArmazemUIs
 
             try
             {
-                ComposicaoUI composicaoUI = new ComposicaoUI();
-                composicaoUI.Owner = this;
-                composicaoUI.ShowDialog();
-                AtualizaListaDeComposicoes();
+                SaidaMercadoriaUI saidaMercadoriaUI = new SaidaMercadoriaUI();
+                saidaMercadoriaUI.Owner = this;
+                saidaMercadoriaUI.ShowDialog();
+                AtualizaListaDeRequisicoes();
             }
             catch (Exception ex)
             {
@@ -49,18 +49,18 @@ namespace ArmazemUIs
         private void ExcluirRegistro()
         {
             statusBar.Text = string.Empty;
-            Composicao composicao = (Composicao)gridComposicoes.SelectedItem;
+            Requisicao requisicao = (Requisicao)gridRequisicoes.SelectedItem;
 
             try
             {
-                if (composicao != null)
+                if (requisicao != null)
                 {
 
-                    if (Util.MensagemDeConfirmacao($"Deseja realmente excluir a composicao {composicao.Id}?"))
+                    if (Util.MensagemDeConfirmacao($"Deseja realmente excluir a requisicao {requisicao.Id}?"))
                     {
-                        Composicao_Controller.Deletar(composicao);
-                        AtualizaListaDeComposicoes();
-                        statusBar.Text = "Composição excluída com sucesso.";
+                        RequisicaoController.Deletar(requisicao);
+                        AtualizaListaDeRequisicoes();
+                        statusBar.Text = "Requisição excluída com sucesso.";
                     }
                 }
 
@@ -84,13 +84,13 @@ namespace ArmazemUIs
             statusBar.Text = string.Empty;
             try
             {
-                if (gridComposicoes.SelectedItem != null)
+                if (gridRequisicoes.SelectedItem != null)
                 {
 
-                    ComposicaoUI composicaoUI = new ComposicaoUI(((Composicao)gridComposicoes.SelectedItem));
-                    composicaoUI.Owner = this;
-                    composicaoUI.ShowDialog();
-                    AtualizaListaDeComposicoes();
+                    SaidaMercadoriaUI saidaMercadoriaUI = new SaidaMercadoriaUI(((Requisicao)gridRequisicoes.SelectedItem));
+                    saidaMercadoriaUI.Owner = this;
+                    saidaMercadoriaUI.ShowDialog();
+                    AtualizaListaDeRequisicoes();
 
                 }
                 else
@@ -109,12 +109,14 @@ namespace ArmazemUIs
 
         #endregion
 
+        #region Eventos
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            AtualizaListaDeComposicoes();
+            AtualizaListaDeRequisicoes();
         }
 
-        private void gridProdutos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void gridRequisicoes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             SelecionarRegistroParaEdicao();
         }
@@ -133,5 +135,8 @@ namespace ArmazemUIs
         {
             IncluirNovoRegistro();
         }
+
+        #endregion
+
     }
 }

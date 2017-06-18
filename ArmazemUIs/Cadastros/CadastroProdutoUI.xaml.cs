@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using static ArmazemModel.Util;
 
-namespace ArmazemUIs
+namespace ArmazemUIs.Cadastros
 {
     /// <summary>
     /// Interaction logic for CadastroProdutoUI.xaml

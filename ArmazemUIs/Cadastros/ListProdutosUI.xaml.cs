@@ -6,7 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ArmazemUIs
+namespace ArmazemUIs.Cadastros
 {
     /// <summary>
     /// Interaction logic for ListProdutosUI.xaml

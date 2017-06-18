@@ -21,5 +21,13 @@ namespace ArmazemModel.Entities
         public DateTime DataEfetivacao { get; set; }
     
         public virtual List<ItemRequisicao> ItensRequisicao { get; set; }
+
+        public string GetStringDataAbertura
+        {
+            get
+            {
+                return DataAbertura.ToString("dd/MM/yyyy");
+            }
+        }
     }
 }

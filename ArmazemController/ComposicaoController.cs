@@ -63,7 +63,7 @@ namespace ArmazemController
         {
             try
             {
-
+                //TODO validar
                 if (composicaoDAL.FindById(composicao.Id) == null)
                     composicaoDAL.Add(composicao);
                 else
@@ -80,7 +80,7 @@ namespace ArmazemController
             composicaoDAL.Contexto = contexto;
         }
 
-        public List<Composicao> ListarTodos()
+        public List<Composicao> ListarTodas()
         {
             try
             {
@@ -95,6 +95,7 @@ namespace ArmazemController
         public void Deletar(Composicao composicao)
         {
             UnitOfWork unitOfWork = null;
+            composicao = composicaoDAL.GetDB(x => x.Id.Equals( composicao.Id));
 
             try
             {

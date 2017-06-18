@@ -99,6 +99,11 @@ namespace ArmazemController
             return produtoDAL.GetList(x => x.Descricao.ToUpper().Contains(descricao.ToUpper()) && x.Tipo.Equals((int)tipo));
         }
 
+        public List<Produto> ListarPorDescricao(string descricao)
+        {
+            return produtoDAL.GetList(x => x.Descricao.ToUpper().Contains(descricao.ToUpper()));
+        }
+
         public void SetContext(ArmazemEntities contexto)
         {
             produtoDAL.Contexto = contexto;

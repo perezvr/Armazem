@@ -17,5 +17,13 @@ namespace ArmazemModel.Entities
         public virtual Produto Produto { get; set; }
         [ForeignKey("RequisicaoId")]
         public virtual Requisicao Requisicao { get; set; }
+
+        public string GetSubTotal
+        {
+            get
+            {
+                return (Qtde * Produto.PrecoCusto).Value.ToString("n2");
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static ArmazemModel.Util;
 
-namespace ArmazemUIs
+namespace ArmazemUIs.Cadastros
 {
     /// <summary>
     /// Interaction logic for ComposicaoUI.xaml
@@ -41,6 +41,7 @@ namespace ArmazemUIs
 
             this.composicao = ComposicaoController.PesquisaPorId(composicao.Id);
             PreencherFormulario();
+            txtCodigo.IsEnabled = false;
         }
 
         #endregion
@@ -72,6 +73,13 @@ namespace ArmazemUIs
             InitializeComponent();
             ProdutoController = new ProdutoController();
             ComposicaoController = new ComposicaoController();
+            ConfiguraTextBoxes();
+        }
+
+        private void ConfiguraTextBoxes()
+        {
+            txtCodigoInsumo.ToNumeric();
+            txtQtdeInsumo.ToNumeric();
         }
 
 
@@ -212,16 +220,19 @@ namespace ArmazemUIs
                             composicao = ComposicaoController.PesquisaPorProdutoCodigo(int.Parse(txtCodigo.Text));
 
                             if (composicao.Id > 0)
-                                PreencherFormulario();
+                            {
+                                Util.MensagemDeInformacao("Já existe uma composição para o produto selecionado.");
+                                LimparFormulario();
+                            }
                             else
                             {
                                 composicao = new Composicao();
-                                composicao.Produto = ProdutoController.PesquisaProduto(int.Parse(txtCodigo.Text),tipo);
+                                composicao.Produto = ProdutoController.PesquisaProduto(int.Parse(txtCodigo.Text), tipo);
 
                                 if (composicao.Produto.Codigo > 0)
                                     PreencheProduto(composicao.Produto);
                                 else
-                                    LimparProduto();
+                                    LimparFormulario();
                             }
                         }
                         break;
@@ -229,10 +240,9 @@ namespace ArmazemUIs
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Util.MensagemDeErro(ex);
             }
         }
 
@@ -291,6 +301,7 @@ namespace ArmazemUIs
             AtualizaListaDeItens();
             AtualizaCustoTotal();
 
+            txtCodigo.IsEnabled = true;
             txtCodigo.Focus();
         }
 
@@ -309,7 +320,7 @@ namespace ArmazemUIs
                 ComposicaoController.Salvar(composicao);
 
                 txtCodigo.Text = composicao.Produto.Codigo.ToString();
-                statusBar.Text = "Produto gravado com sucesso";
+                statusBar.Text = "Composição gravada com sucesso";
             }
             catch (ValidationException ex)
             {
@@ -338,10 +349,9 @@ namespace ArmazemUIs
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Util.MensagemDeErro(ex);
             }
         }
 
@@ -349,20 +359,10 @@ namespace ArmazemUIs
 
         #region Eventos
 
-        private void gridInsumos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            //TODO atualizar insumos
-        }
-
         private void txtCodigoInsumo_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtCodigoInsumo.Text))
                 CarregaProdutoPorCodigo(int.Parse(txtCodigoInsumo.Text), TIPO_PRODUTO.SIMPLES);
-        }
-
-        private void txtCodigoInsumo_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = Util.TextoSomenteNumerico(e.Text);
         }
 
         private void txtCodigoInsumo_KeyUp(object sender, KeyEventArgs e)

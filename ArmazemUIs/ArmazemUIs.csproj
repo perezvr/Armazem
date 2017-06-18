@@ -64,36 +64,42 @@
     <Compile Include="BuscaProdutosUI.xaml.cs">
       <DependentUpon>BuscaProdutosUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CadastroProdutoUI.xaml.cs">
+    <Compile Include="Cadastros\CadastroProdutoUI.xaml.cs">
       <DependentUpon>CadastroProdutoUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ComposicaoUI.xaml.cs">
+    <Compile Include="Cadastros\ComposicaoUI.xaml.cs">
       <DependentUpon>ComposicaoUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ListComposicoesUI.xaml.cs">
+    <Compile Include="Cadastros\ListComposicoesUI.xaml.cs">
       <DependentUpon>ListComposicoesUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ListProdutosUI.xaml.cs">
+    <Compile Include="Cadastros\ListProdutosUI.xaml.cs">
       <DependentUpon>ListProdutosUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requisicoes\ListRequisicoesUI.xaml.cs">
+      <DependentUpon>ListRequisicoesUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requisicoes\SaidaMercadoriaUI.xaml.cs">
+      <DependentUpon>SaidaMercadoriaUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
     <Page Include="BuscaProdutosUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CadastroProdutoUI.xaml">
+    <Page Include="Cadastros\CadastroProdutoUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ComposicaoUI.xaml">
+    <Page Include="Cadastros\ComposicaoUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ListComposicoesUI.xaml">
+    <Page Include="Cadastros\ListComposicoesUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ListProdutosUI.xaml">
+    <Page Include="Cadastros\ListProdutosUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,6 +115,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Requisicoes\ListRequisicoesUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Requisicoes\SaidaMercadoriaUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

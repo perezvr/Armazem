@@ -13,7 +13,7 @@ namespace ArmazemUIs
     /// </summary>
     public partial class BuscaProdutosUI : Window
     {
-        ProdutoController Produto_Controller { get; set; }
+        ProdutoController ProdutoController { get; set; }
         public Produto ProdutoSelecionado { get; set; }
         TIPO_PRODUTO tipoProduto;
 
@@ -21,7 +21,7 @@ namespace ArmazemUIs
         {
             InitializeComponent();
             this.tipoProduto = tipoProduto;
-            Produto_Controller = new ProdutoController();
+            ProdutoController = new ProdutoController();
         }
 
         private void SelecionarProduto()
@@ -53,7 +53,12 @@ namespace ArmazemUIs
             try
             {
                 if (!string.IsNullOrWhiteSpace(txtDescricao.Text))
-                    gridProdutos.ItemsSource = Produto_Controller.ListarPorDescricaoETipo(txtDescricao.Text, tipoProduto);
+                {
+                    if (tipoProduto.Equals(TIPO_PRODUTO.TODOS))
+                        gridProdutos.ItemsSource = ProdutoController.ListarPorDescricao(txtDescricao.Text);
+                    else
+                        gridProdutos.ItemsSource = ProdutoController.ListarPorDescricaoETipo(txtDescricao.Text, tipoProduto);
+                }
             }
             catch (Exception ex)
             {

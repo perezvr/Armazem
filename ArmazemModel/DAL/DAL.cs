@@ -15,6 +15,13 @@ namespace ArmazemModel.DAL
         protected DAL()
         {
             Contexto = new ArmazemEntities();
+
+            Contexto.Configuration.AutoDetectChangesEnabled = false;
+            //Contexto.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
+            //Contexto.Configuration.LazyLoadingEnabled = false;
+            //Contexto.Configuration.ProxyCreationEnabled = false;
+            Contexto.Configuration.UseDatabaseNullSemantics = false;
+            Contexto.Configuration.ValidateOnSaveEnabled = false;
         }
 
         /// <summary>

@@ -14,7 +14,7 @@
                 <MenuItem x:Name="menuComposicao" Header="_Composições" Click="menuComposicao_Click"/>
             </MenuItem>
             <MenuItem Header="_Requisições">
-                <MenuItem Header="Requisição de saída de mercadoria" />
+                <MenuItem x:Name="menuRequisicao" Header="_Requisição de saída de mercadoria" Click="menuRequisicao_Click" />
             </MenuItem>
             <MenuItem Header="R_elatórios">
                 <MenuItem Header="Requisição de saída de mercadoria" />

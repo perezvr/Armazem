@@ -32,6 +32,8 @@ namespace ArmazemModel
             SIMPLES = 1,
             [Description("Produtos Compostos")]
             COMPOSTO = 2,
+            [Description("Todos")]
+            TODOS = 3,
         }
     }
 

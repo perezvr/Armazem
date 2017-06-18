@@ -1,4 +1,4 @@
-﻿<Window x:Class="ArmazemUIs.ListComposicoesUI"
+﻿<Window x:Class="ArmazemUIs.Cadastros.ListComposicoesUI"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -23,7 +23,7 @@
         </GroupBox>
         <Button x:Name="btnSelecionar" Content="_Selecionar" HorizontalAlignment="Right" Margin="0,0,102,36" VerticalAlignment="Bottom" Width="75" Click="btnSelecionar_Click"/>
         <Button x:Name="btnExcluir" Content="_Excluir" HorizontalAlignment="Right" Margin="0,0,10,36" VerticalAlignment="Bottom" Width="75" Click="btnExcluir_Click"/>
-        <Button x:Name="btnNovo" Content="_Novo" HorizontalAlignment="Left" Margin="10,0,0,36" VerticalAlignment="Bottom" Width="75" Click="btnNovo_Click"/>
+        <Button x:Name="btnNovo" Content="_Nova" HorizontalAlignment="Left" Margin="10,0,0,36" VerticalAlignment="Bottom" Width="75" Click="btnNovo_Click"/>
         <StatusBar Height="24" VerticalAlignment="Bottom">
             <StatusBarItem>
                 <TextBlock x:Name="statusBar"/>

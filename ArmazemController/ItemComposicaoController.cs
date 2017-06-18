@@ -52,11 +52,11 @@ namespace ArmazemController
             }
         }
 
-        public void Excluir(ItemComposicao c)
+        public void Excluir(ItemComposicao itemComposicao)
         {
             try
             {
-                itemComposicaoDAL.Delete(x => x.Id.Equals(c.Id));
+                itemComposicaoDAL.Delete(x => x.Id.Equals(itemComposicao.Id));
             }
             catch (Exception)
             {
