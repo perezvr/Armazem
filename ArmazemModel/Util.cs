@@ -13,19 +13,9 @@ namespace ArmazemModel
 {
     public class Util
     {
-        public static object Clone(object obj)
-        {
-            object new_obj = Activator.CreateInstance(obj.GetType());
-            foreach (PropertyInfo pi in obj.GetType().GetProperties())
-            {
-                if (pi.CanRead && pi.CanWrite)
-                {
-                    pi.SetValue(new_obj, pi.GetValue(obj, null), null);
-                }
-            }
-            return new_obj;
-        }
-
+        /// <summary>
+        /// Enum utilizado para definir o tipo de produto a ser utilizado.
+        /// </summary>
         public enum TIPO_PRODUTO : int
         {
             [Description("Produtos Simples")]
@@ -36,6 +26,9 @@ namespace ArmazemModel
             TODOS = 3,
         }
 
+        /// <summary>
+        /// Enum utilizado para tratamento do tipo de relatório a ser utilizado.
+        /// </summary>
         public enum TIPO_RELATORIO : int
         {
             [Description("Requisições efetuadas")]
@@ -59,6 +52,12 @@ namespace ArmazemModel
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
         }
 
+        #region TextBox
+
+        /// <summary>
+        /// Extensão faz com que o TextBox tenha um comportamento para aceitar valores monetários somente.
+        /// </summary>
+        /// <param name="txInput">TextBox</param>
         public static void ToMoney(this TextBox txInput)
         {
             txInput.TextWrapping = System.Windows.TextWrapping.NoWrap;
@@ -135,6 +134,11 @@ namespace ArmazemModel
                 textBox.Text = decimal.Parse(textBox.Text).ToString("n2");
         }
 
+
+        /// <summary>
+        /// Extensão faz com que o TextBox tenha um comportamento para aceitar valores numéricos somente.
+        /// </summary>
+        /// <param name="txInput">TextBox</param>
         public static void ToNumeric(this TextBox txInput)
         {
             txInput.PreviewTextInput += TxInput_PreviewTextInput1;
@@ -160,8 +164,13 @@ namespace ArmazemModel
                 tx.Text = "0";
         }
 
+        #endregion
+
     }
 
+    /// <summary>
+    /// Classe customizada para lançamento de exceções.
+    /// </summary>
     public class ValidationException : Exception
     {
         public ValidationException(string mensagem) : base(mensagem) { }

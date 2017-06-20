@@ -11,7 +11,7 @@ namespace ArmazemModel.DAL
     public class ComposicaoDAL : DAL<Composicao>
     {
         /// <summary>
-        /// Adiciona um objeto no banco de dados
+        /// Adiciona uma composição no banco de dados com tratamento para seus subobjetos
         /// </summary>
         /// <param name="objeto">Objeto a ser incluído no banco de dados</param>
         public void Add(Composicao objeto)
@@ -28,7 +28,7 @@ namespace ArmazemModel.DAL
         }
 
         /// <summary>
-        /// Atualiza um registro no banco de dados
+        /// Atualiza uma composição no banco de dados com tratamento para seus subobjetos
         /// </summary>
         /// <param name="objeto">Objeto a ser atualizado no banco de dados</param>
         public void Update(Composicao objeto)

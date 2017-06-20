@@ -78,14 +78,11 @@ namespace ArmazemUIs.Cadastros
 
         private void ConfiguraTextBoxes()
         {
+            txtCodigo.ToNumeric();
             txtCodigoInsumo.ToNumeric();
             txtQtdeInsumo.ToNumeric();
         }
-
-
-        /// <summary>
-        /// Atualiza a exibição do custo total dos itens da composicao
-        /// /// </summary>
+        
         private void AtualizaCustoTotal()
         {
             txtCustoTotal.Text = composicao.ItensComposcicao.Sum(x => x.Qtde * x.Produto.PrecoCusto).Value.ToString("n2");
@@ -107,9 +104,6 @@ namespace ArmazemUIs.Cadastros
             AtualizaCustoTotal();
         }
 
-        /// <summary>
-        /// Acessa a tela de busca de produtos
-        /// </summary>
         private void BuscaDeProdutos(TIPO_PRODUTO tipoProduto)
         {
             try
@@ -149,15 +143,7 @@ namespace ArmazemUIs.Cadastros
                 txtDescricaoInsumo.Text =
                 txtQtdeInsumo.Text = string.Empty;
         }
-
-        private void LimparProduto()
-        {
-            composicao.Produto = new Produto();
-
-            txtCodigo.Text =
-                txtDescricao.Text = string.Empty;
-        }
-
+        
         private void RemoverItem()
         {
             statusBar.Text = string.Empty;
@@ -247,17 +233,13 @@ namespace ArmazemUIs.Cadastros
                 Util.MensagemDeErro(ex);
             }
         }
-
-        /// <summary>
-        /// Adiciona um item na composição
-        /// </summary>
+        
         private void AdicionarItem()
         {
             statusBar.Text = string.Empty;
 
             try
             {
-
                 ValidaAdicionarItem();
                 ItemComposicao itemComposicao = new ItemComposicao()
                 {
@@ -282,10 +264,7 @@ namespace ArmazemUIs.Cadastros
                 Util.MensagemDeErro(ex);
             }
         }
-
-        /// <summary>
-        /// Limpa o formulário
-        /// </summary>
+        
         private void LimparFormulario()
         {
             statusBar.Text = string.Empty;
@@ -306,10 +285,7 @@ namespace ArmazemUIs.Cadastros
             txtCodigo.IsEnabled = true;
             txtCodigo.Focus();
         }
-
-        /// <summary>
-        /// Salva o formulário
-        /// </summary>
+        
         private void SalvarFormulario()
         {
             statusBar.Text = string.Empty;
@@ -334,10 +310,7 @@ namespace ArmazemUIs.Cadastros
                 Util.MensagemDeErro(ex);
             }
         }
-
-        /// <summary>
-        /// Exclui uma composição
-        /// </summary>
+        
         private void ExcluirRegistro()
         {
             statusBar.Text = string.Empty;
@@ -399,12 +372,7 @@ namespace ArmazemUIs.Cadastros
             if (!string.IsNullOrWhiteSpace(txtCodigo.Text))
                 CarregaProdutoPorCodigo(int.Parse(txtCodigo.Text), TIPO_PRODUTO.COMPOSTO);
         }
-
-        private void txtCodigo_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = Util.TextoSomenteNumerico(e.Text);
-        }
-
+        
         private void txtCodigo_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key.Equals(Key.F3))
@@ -420,8 +388,3 @@ namespace ArmazemUIs.Cadastros
 
     }
 }
-
-
-//TODO arrumar tabIndex de todas as telas
-//TODO encapsular as mensagens de erro Exception
-//TODO mudar as cores da grid

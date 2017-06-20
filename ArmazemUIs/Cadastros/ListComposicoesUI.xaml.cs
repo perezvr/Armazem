@@ -20,7 +20,6 @@ namespace ArmazemUIs.Cadastros
             ComposicaoController = new ComposicaoController();
         }
 
-
         #region Operações
 
         private void AtualizaListaDeComposicoes()
@@ -87,16 +86,13 @@ namespace ArmazemUIs.Cadastros
             {
                 if (gridComposicoes.SelectedItem != null)
                 {
-
                     ComposicaoUI composicaoUI = new ComposicaoUI(((Composicao)gridComposicoes.SelectedItem));
                     composicaoUI.Owner = this;
                     composicaoUI.ShowDialog();
                     AtualizaListaDeComposicoes();
-
                 }
                 else
                     throw new ValidationException("Selecione um registo.");
-
             }
             catch (ValidationException ex)
             {

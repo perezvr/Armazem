@@ -27,23 +27,9 @@ namespace ArmazemUIs
             //cria o banco de dados caso ainda não exista
             ArmazemEntities db = new ArmazemEntities();
             db.Database.CreateIfNotExists();
-
-            //Composicao c = con.PesquisaPorId(2);
-            //c.ItensComposcicao.RemoveAll(x => x.Id.Equals(38));
-
-            //Produto p = con1.PesquisaPorCodigo(3);
-
-            //ItemComposicao item = new ItemComposicao()
-            //{
-            //    Produto = p,
-            //    Qtde = 10,
-            //};
-
-            //c.ItensComposcicao.Add(item);
-
-            //con.Salvar(c);
-
         }
+
+        #region Operações
 
         private void AcessaCadastroProdutos()
         {
@@ -125,6 +111,8 @@ namespace ArmazemUIs
             }
         }
 
+        #endregion
+
         #region Chamadas do menu
 
         private void menuProdutos_Click(object sender, RoutedEventArgs e)
@@ -153,6 +141,5 @@ namespace ArmazemUIs
         }
 
         #endregion
-
     }
 }

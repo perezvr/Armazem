@@ -21,12 +21,12 @@ namespace ArmazemUIs.Cadastros
             Produto_Controller = new ProdutoController();
         }
 
+        #region Operações
+
         private void AtualizaListaDeProdutos()
         {
             gridProdutos.ItemsSource = Produto_Controller.ListarTodos();
         }
-
-        #region Operações
 
         private void IncluirNovoRegistro()
         {
@@ -149,6 +149,3 @@ namespace ArmazemUIs.Cadastros
         #endregion
     }
 }
-
-//TODO arrumar o GetPrecoCusto para contemplar o Produto Composto
-

@@ -12,6 +12,7 @@ namespace ArmazemModel.Entities
         {
             ItensComposcicao = new List<ItemComposicao>();
         }
+
         [Key]
         public int Id { get; set; }
         public int ProdutoCodigo { get; set; }

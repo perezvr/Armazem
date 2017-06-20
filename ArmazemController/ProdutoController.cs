@@ -19,6 +19,8 @@ namespace ArmazemController
             itemComposicaoController = new ItemComposicaoController();
         }
 
+        #region Validações
+
         private static void ValidSaveProduto(Produto produto)
         {
             if (string.IsNullOrWhiteSpace(produto.Descricao))
@@ -26,6 +28,10 @@ namespace ArmazemController
             if (produto.Tipo.Equals(0))
                 throw new ValidationException("O tipo do produto é obrigatório!");
         }
+
+        #endregion
+
+        #region Operações
 
         public void Salvar(Produto produto)
         {
@@ -81,7 +87,7 @@ namespace ArmazemController
                 throw;
             }
         }
-        
+
         public List<Produto> ListarTodos()
         {
             try
@@ -104,12 +110,11 @@ namespace ArmazemController
             return produtoDAL.GetList(x => x.Descricao.ToUpper().Contains(descricao.ToUpper()));
         }
 
+        #endregion
+
         public void SetContext(ArmazemEntities contexto)
         {
             produtoDAL.Contexto = contexto;
         }
-
     }
 }
-
-//TODO colocar máscara de moeda nas grids

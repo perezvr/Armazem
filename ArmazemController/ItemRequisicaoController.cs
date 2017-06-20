@@ -15,20 +15,10 @@ namespace ArmazemController
 
         public ItemRequisicaoController()
         {
-            itemRequisicaoDAL = new ItemRequisicaoDAL(); 
+            itemRequisicaoDAL = new ItemRequisicaoDAL();
         }
 
-        public ItemRequisicao BuscaPorCodigo(int id)
-        {
-            try
-            {
-                return itemRequisicaoDAL.FindById(id);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        #region Operações
 
         public void Excluir(ItemRequisicao itemRequisicao)
         {
@@ -42,6 +32,8 @@ namespace ArmazemController
                 throw;
             }
         }
+
+        #endregion
 
         public void SetContext(ArmazemEntities contexto)
         {

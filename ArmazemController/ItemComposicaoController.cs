@@ -17,40 +17,8 @@ namespace ArmazemController
         {
             itemComposicaoDAL = new ItemComposicaoDAL();
         }
-        public void Salvar(ItemComposicao itemComposicao)
-        {
-            try
-            {
-                Produto produto = itemComposicao.Produto;
-                itemComposicao.ProdutoCodigo = itemComposicao.Produto.Codigo;
-                itemComposicao.Produto = null;
 
-                if (itemComposicao.Id.Equals(0))
-                    itemComposicaoDAL.Add(itemComposicao);
-                else
-                    itemComposicaoDAL.Update(itemComposicao);
-
-                itemComposicao.Produto = produto;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        } 
-
-        public void DeletaPorComposicao(int id)
-        {
-            try
-            {
-                itemComposicaoDAL.Delete(x => x.ComposicaoId.Equals(id));
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        #region Operações
 
         public void Excluir(ItemComposicao itemComposicao)
         {
@@ -64,6 +32,8 @@ namespace ArmazemController
                 throw;
             }
         }
+
+        #endregion
 
         public void SetContext(ArmazemEntities contexto)
         {

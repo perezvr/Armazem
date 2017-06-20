@@ -24,6 +24,8 @@ namespace ArmazemUIs
             ProdutoController = new ProdutoController();
         }
 
+        #region Operações
+
         private void SelecionarProduto()
         {
             try
@@ -66,7 +68,9 @@ namespace ArmazemUIs
             }
         }
 
-        #region Button_Click
+        #endregion
+
+        #region Eventos
 
         private void gridProdutos_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -78,12 +82,13 @@ namespace ArmazemUIs
             BuscaProduto();
         }
 
-        #endregion
-
         private void btnSelecionar_Click(object sender, RoutedEventArgs e)
         {
             SelecionarProduto();
         }
+
+        #endregion
+
     }
 }
 //TODO colocar icone no sistema

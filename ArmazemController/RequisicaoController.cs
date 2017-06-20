@@ -26,6 +26,8 @@ namespace ArmazemController
             produtoController = new ProdutoController();
         }
 
+        #region Validações
+
         private void ValidaSalvarRequisicao()
         {
 
@@ -40,6 +42,26 @@ namespace ArmazemController
             if (Requisicao.ItensRequisicao.Count.Equals(0))
                 throw new ValidationException("Insira ao menos um item para a requisição!");
         }
+
+        private void ValidaDeletarRequisicao()
+        {
+            if (Requisicao.Efetivado)
+                throw new ValidationException("Requisição já efetivada, não pode ser excluída!");
+        }
+
+        private void ValidaEfetivarRequisicao()
+        {
+            if (Requisicao.Id.Equals(0))
+                throw new ValidationException("Selecione ou grave a requisição antes de efetivá-la!");
+            if (Requisicao.Efetivado)
+                throw new ValidationException("A requisicação já está efetivada!");
+            ValidabaixaDeEstoque();
+
+        }
+
+        #endregion
+
+        #region Operações
 
         public void Salvar()
         {
@@ -85,11 +107,6 @@ namespace ArmazemController
             }
         }
 
-        private void ValidaDeletarRequisicao()
-        {
-            if (Requisicao.Efetivado)
-                throw new ValidationException("Requisição já efetivada, não pode ser excluída!");
-        }
 
         public void Deletar(Requisicao requisicao)
         {
@@ -131,9 +148,6 @@ namespace ArmazemController
             }
         }
 
-        /// <summary>
-        /// Valida inclusão de itens para uma composição
-        /// </summary>
         private void ValidaAdicionarItem(ItemRequisicao itemRequisicao)
         {
             if (itemRequisicao.Produto.Codigo.Equals(0))
@@ -154,7 +168,7 @@ namespace ArmazemController
                     PrecoCusto = produto.PrecoCusto.HasValue
                         ? produto.PrecoCusto.Value
                         : 0,
-                        PrecoVenda = produto.PrecoVenda.HasValue
+                    PrecoVenda = produto.PrecoVenda.HasValue
                         ? produto.PrecoVenda.Value
                         : 0
                 };
@@ -201,17 +215,6 @@ namespace ArmazemController
                 }
 
             });
-        }
-
-
-        private void ValidaEfetivarRequisicao()
-        {
-            if (Requisicao.Id.Equals(0))
-                throw new ValidationException("Selecione ou grave a requisição antes de efetivá-la!");
-            if (Requisicao.Efetivado)
-                throw new ValidationException("A requisicação já está efetivada!");
-            ValidabaixaDeEstoque();
-
         }
 
         private void BaixarEstoque()
@@ -267,7 +270,8 @@ namespace ArmazemController
                     unitOfWork.RollBack();
                 throw;
             }
-
         }
+
+        #endregion
     }
 }

@@ -113,12 +113,13 @@ namespace ArmazemUIs.Relatórios
         {
             LimparFormulario();
         }
-
-        #endregion
-
-        private void btnVisualizar_Click(object sender, RoutedEventArgs e)
+      private void btnVisualizar_Click(object sender, RoutedEventArgs e)
         {
             Pesquisar();
         }
+
+        #endregion
+
+  
     }
 }

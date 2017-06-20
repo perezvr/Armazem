@@ -12,7 +12,7 @@
         <GroupBox Margin="10,10,10,0" Header="Dados do produto" Height="135" VerticalAlignment="Top">
             <Grid>
                 <Label Content="Código" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtCodigo" TextAlignment="Right" KeyUp="txtCodigo_KeyUp" PreviewTextInput="txtCodigo_PreviewTextInput" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" LostFocus="txtCodigo_LostFocus"/>
+                <TextBox x:Name="txtCodigo" TextAlignment="Right" KeyUp="txtCodigo_KeyUp" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99" LostFocus="txtCodigo_LostFocus"/>
                 <TextBox x:Name="txtDescricao" IsEnabled="False" Height="23" VerticalContentAlignment="Center" Margin="114,26,10,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="50"/>
                 <Label Content="Descrição" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Top"/>
                 <Label  Content="Preço de Venda" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top"/>

@@ -49,7 +49,6 @@
     <Compile Include="Relatorios\RelatorioRequisicoesController.cs" />
     <Compile Include="Relatorios\RelatorioSaidasController.cs" />
     <Compile Include="RequisicaoController.cs" />
-    <Compile Include="Testes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArmazemModel\ArmazemModel.csproj">

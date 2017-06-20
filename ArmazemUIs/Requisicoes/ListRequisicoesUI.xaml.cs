@@ -86,16 +86,13 @@ namespace ArmazemUIs.Requisicoes
             {
                 if (gridRequisicoes.SelectedItem != null)
                 {
-
                     SaidaMercadoriaUI saidaMercadoriaUI = new SaidaMercadoriaUI(((Requisicao)gridRequisicoes.SelectedItem));
                     saidaMercadoriaUI.Owner = this;
                     saidaMercadoriaUI.ShowDialog();
                     AtualizaListaDeRequisicoes();
-
                 }
                 else
                     throw new ValidationException("Selecione um registo.");
-
             }
             catch (ValidationException ex)
             {

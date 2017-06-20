@@ -12,12 +12,13 @@ namespace ArmazemController
         ComposicaoDAL composicaoDAL = null;
         ItemComposicaoController itemComposicaoController;
 
-
         public ComposicaoController()
         {
             itemComposicaoController = new ItemComposicaoController();
             composicaoDAL = new ComposicaoDAL();
         }
+
+        #region Validações
 
         /// <summary>
         /// Valida inclusão de itens para uma composição
@@ -30,6 +31,10 @@ namespace ArmazemController
                 throw new ValidationException("Informe a quantidade do item.");
 
         }
+
+        #endregion
+
+        #region Operações
 
         public void AdidionarItem(Composicao composicao, ItemComposicao itemComposicao)
         {
@@ -58,7 +63,6 @@ namespace ArmazemController
             }
         }
 
-
         public void Salvar(Composicao composicao)
         {
             // UnitOfWork unitOfWork
@@ -77,10 +81,7 @@ namespace ArmazemController
             }
         }
 
-        public void SetContext(ArmazemEntities contexto)
-        {
-            composicaoDAL.Contexto = contexto;
-        }
+
 
         public List<Composicao> ListarTodas()
         {
@@ -97,7 +98,7 @@ namespace ArmazemController
         public void Deletar(Composicao composicao)
         {
             UnitOfWork unitOfWork = null;
-            composicao = composicaoDAL.GetDB(x => x.Id.Equals( composicao.Id));
+            composicao = composicaoDAL.GetDB(x => x.Id.Equals(composicao.Id));
 
             try
             {
@@ -144,5 +145,11 @@ namespace ArmazemController
             }
         }
 
+        #endregion
+
+        public void SetContext(ArmazemEntities contexto)
+        {
+            composicaoDAL.Contexto = contexto;
+        }
     }
 }

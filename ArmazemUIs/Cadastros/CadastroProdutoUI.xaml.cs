@@ -146,7 +146,6 @@ namespace ArmazemUIs.Cadastros
                     ? int.Parse(txtEstoqueAtual.Text)
                     : 0;
 
-
                 ProdutoController.Salvar(produtoSelecionado);
 
                 txtCodigo.Text = produtoSelecionado.Codigo.ToString();
@@ -234,6 +233,3 @@ namespace ArmazemUIs.Cadastros
         #endregion
     }
 }
-
-
-//TODO arrumar os namespaces das UIs

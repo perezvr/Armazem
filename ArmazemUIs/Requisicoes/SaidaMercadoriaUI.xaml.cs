@@ -68,7 +68,6 @@ namespace ArmazemUIs.Requisicoes
 
         #endregion
 
-
         #region Operações
 
         private void PreencherFormulario()
@@ -94,10 +93,7 @@ namespace ArmazemUIs.Requisicoes
             txtCodigoItem.ToNumeric();
             txtQtdeItem.ToNumeric();
         }
-
-        /// <summary>
-        /// Limpa o formulário
-        /// </summary>
+        
         private void LimparFormulario()
         {
             statusBar.Text = string.Empty;
@@ -124,10 +120,7 @@ namespace ArmazemUIs.Requisicoes
             gridItens.ItemsSource = RequisicaoController.Requisicao.ItensRequisicao;
             gridItens.Items.Refresh();
         }
-
-        /// <summary>
-        /// Atualiza a exibição do custo total dos itens da requisição
-        /// /// </summary>
+        
         private void AtualizaCustoTotal()
         {
             txtCustoTotal.Text = RequisicaoController.Requisicao.ItensRequisicao.Sum(x => x.Qtde * x.Produto.PrecoCusto).Value.ToString("n2");
@@ -172,10 +165,7 @@ namespace ArmazemUIs.Requisicoes
                 txtDescricaoItem.Text =
                 txtQtdeItem.Text = string.Empty;
         }
-
-        /// <summary>
-        /// Acessa a tela de busca de produtos
-        /// </summary>
+        
         private void BuscaDeProdutos()
         {
             try
@@ -267,10 +257,7 @@ namespace ArmazemUIs.Requisicoes
                 Util.MensagemDeErro(ex);
             }
         }
-
-        /// <summary>
-        /// Salva o formulário
-        /// </summary>
+        
         private void SalvarFormulario()
         {
             statusBar.Text = string.Empty;
@@ -295,10 +282,7 @@ namespace ArmazemUIs.Requisicoes
                 Util.MensagemDeErro(ex);
             }
         }
-
-        /// <summary>
-        /// Exclui uma composição
-        /// </summary>
+        
         private void ExcluirRegistro()
         {
             statusBar.Text = string.Empty;
@@ -321,15 +305,12 @@ namespace ArmazemUIs.Requisicoes
 
         #endregion
 
-
         #region Eventos
 
         private void btnNovo_Click(object sender, RoutedEventArgs e)
         {
             LimparFormulario();
         }
-
-        #endregion
 
         private void txtCodigoItem_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -367,5 +348,7 @@ namespace ArmazemUIs.Requisicoes
         {
             EfetivarRequisicao();
         }
+
+        #endregion
     }
 }

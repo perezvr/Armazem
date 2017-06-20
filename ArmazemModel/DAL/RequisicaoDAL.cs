@@ -10,7 +10,7 @@ namespace ArmazemModel.DAL
     public class RequisicaoDAL : DAL<Requisicao>
     {
         /// <summary>
-        /// Adiciona um objeto no banco de dados
+        /// Adiciona uma requisição no banco de dados com tratamento para seus subobjetos
         /// </summary>
         /// <param name="objeto">Objeto a ser incluído no banco de dados</param>
         public void Add(Requisicao objeto)
@@ -25,7 +25,7 @@ namespace ArmazemModel.DAL
         }
 
         /// <summary>
-        /// Atualiza um registro no banco de dados
+        /// Atualiza uma requisição no banco de dados com tratamento para seus subobjetos
         /// </summary>
         /// <param name="objeto">Objeto a ser atualizado no banco de dados</param>
         public void Update(Requisicao objeto)

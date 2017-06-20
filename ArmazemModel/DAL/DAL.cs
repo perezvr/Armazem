@@ -15,7 +15,6 @@ namespace ArmazemModel.DAL
         protected DAL()
         {
             Contexto = new ArmazemEntities();
-
             //Contexto.Configuration.AutoDetectChangesEnabled = false;
             //Contexto.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
             //Contexto.Configuration.LazyLoadingEnabled = false;
@@ -103,35 +102,61 @@ namespace ArmazemModel.DAL
             Contexto.SaveChanges();
         }
 
+        /// <summary>
+        /// Retorna uma lista de objetos que correspondam à expressão
+        /// </summary>
+        /// <param name="expressao">Expressão utilizada para filtrar itens a serem listados</param>
+        /// <returns>Lista de objetos</returns>
         public List<T> GetList(Func<T, bool> expressao)
         {
             return Contexto.Set<T>().Where(expressao).ToList();
         }
 
+        /// <summary>
+        /// Retorna o primeiro objeto que corresponda à expressão
+        /// </summary>
+        /// <param name="predicate">Expressão utilizada para filtrar o objeto</param>
+        /// <returns>Objeto</returns>
         public T Get(Func<T, bool> predicate)
         {
             return Contexto.Set<T>().Where(predicate).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Retorna o primeiro objeto que corresponda à expressão, forçando a pegar do banco de dados.
+        /// </summary>
+        /// <param name="predicate">Expressão utilizada para filtrar o objeto</param>
+        /// <returns>Objeto</returns>
         public T GetDB(Func<T, bool> predicate)
         {
             return Contexto.Set<T>().AsNoTracking().Where(predicate).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Retorna lista com todos os objetos.
+        /// </summary>
+        /// <returns>Lista de objetos</returns>
         public IQueryable<T> GetAll()
         {
             return Contexto.Set<T>();
         }
 
+        /// <summary>
+        /// Retorna lista com todos os objetos, forçando a pegar do banco de dados.
+        /// </summary>
+        /// <returns>Lista de objetos</returns>
         public IQueryable<T> GetAllDB()
         {
             return Contexto.Set<T>().AsNoTracking();
         }
 
+        /// <summary>
+        /// Seta o contexto para utilização em transações.
+        /// </summary>
+        /// <param name="contexto"></param>
         public void SetContext(ArmazemEntities contexto)
         {
             Contexto = contexto;
         }
-
     }
 }
