@@ -65,11 +65,8 @@ namespace ArmazemController
 
         public void Salvar(Composicao composicao)
         {
-            // UnitOfWork unitOfWork
             try
             {
-
-                //TODO validar
                 if (composicaoDAL.FindById(composicao.Id) == null)
                     composicaoDAL.Add(composicao);
                 else
@@ -80,8 +77,6 @@ namespace ArmazemController
                 throw;
             }
         }
-
-
 
         public List<Composicao> ListarTodas()
         {
