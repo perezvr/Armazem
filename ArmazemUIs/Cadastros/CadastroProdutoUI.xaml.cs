@@ -40,12 +40,14 @@ namespace ArmazemUIs.Cadastros
 
         private bool ValidaPrecoInserido(TextBox txt)
         {
-            return decimal.TryParse(txt.Text, out decimal preco);
+            decimal preco;
+            return decimal.TryParse(txt.Text, out preco);
         }
 
         private bool ValidaEstoqueAtual()
         {
-            return int.TryParse(txtEstoqueAtual.Text, out int estoque);
+            int estoque;
+            return int.TryParse(txtEstoqueAtual.Text, out estoque);
         }
 
         private void ValidaSalvarFormulario()
